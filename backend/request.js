@@ -1,17 +1,18 @@
 import needle from "needle";
 
-// needle.post(
-//   "http://localhost:3000/save-user",
-//   {
-//     firstName: "Ted",
-//     lastName: "Nelson",
-//     email: "ted.n@w3c.com",
-//     age: 83,
-//   },
-//   (err, res) => {
-//     console.log(res.body);
-//   }
-// );
+needle.post(
+  "http://localhost:3001/addUser",
+  {
+    firstName: "Ted",
+    lastName: "Nelson",
+    email: "ted.n@w3c.com",
+    password: "ted.n@w3c.com",
+    age: 83,
+  },
+  (err, res) => {
+    console.log(res.body);
+  }
+);
 
 // needle.post(
 //   "http://localhost:3000/save-user",
@@ -39,12 +40,12 @@ import needle from "needle";
 //   }
 // );
 
-needle.get(
-  "http://localhost:3000/find-by-name?firstName=Ana&lastName=Bray",
-  (err, res) => {
-    if (!err && res.statusCode == 200) console.log(res.body);
-  }
-);
+// needle.get(
+//   "http://localhost:3000/find-by-name?firstName=Ana&lastName=Bray",
+//   (err, res) => {
+//     if (!err && res.statusCode == 200) console.log(res.body);
+//   }
+// );
 
 // needle.get(
 //   "http://localhost:3000/find-verified-users",
