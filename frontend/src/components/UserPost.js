@@ -7,30 +7,30 @@ class UserPost extends React.Component {
       <div>
         {postData.map((postdetails) => {
           return (
-            <article class="post">
-              <div class="post-userinfo">
+            <article className="post">
+              <div className="post-userinfo">
                 <div>
-                  <img class="post-profile-image" src={require("../images/user-01.jpg")} alt="" />
+                  <img className="post-profile-image" src={require("../images/user-01.jpg")} alt="" />
                 </div>
-                <div class="post-details">
-                  <div class="post-name">{postdetails.name}</div>
-                  <time class="post-time">{postdetails.time}</time>
-                </div>
-              </div>
-              <div class="post-content">
-                <div class="post-content-text">
-                  <p>{postdetails.body}</p>
+                <div className="post-details">
+                  <div className="post-name">{postdetails.name}</div>
+                  <time className="post-time">{postdetails.time}</time>
                 </div>
               </div>
-              <div class="post-interactions">
-                <div class="post-interactions-container">
-                  <i class="icon icon-like"></i> <span>Like</span>
+              <div className="post-content">
+                <div className="post-content-text">
+                  <p>{postdetails.content}</p>
                 </div>
-                <div class="post-interactions-container">
-                  <i class="icon icon-comment"></i> <span>Comment</span>
+              </div>
+              <div className="post-interactions">
+                <div className="post-interactions-container">
+                  <i className="icon icon-like"></i> <span>Like</span>
                 </div>
-                <div class="post-interactions-container">
-                  <i class="icon icon-s"></i> <span>Share</span>
+                <div className="post-interactions-container">
+                  <i className="icon icon-comment"></i> <span>Comment</span>
+                </div>
+                <div className="post-interactions-container">
+                  <i className="icon icon-s"></i> <span>Share</span>
                 </div>
               </div>
             </article>

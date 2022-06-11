@@ -3,11 +3,14 @@ import jwt from "jsonwebtoken";
 
 const User = mongoose.model("user");
 
-const Post = mongoose.model("post", {
-  poster_id: { type: mongoose.Types.ObjectId, required: true },
-  // poster_email: { type: String, required: true },
-  content: { type: String, required: true },
-});
+const Post = mongoose.model(
+  "post",
+  {
+    poster_id: { type: mongoose.Types.ObjectId, required: true },
+    // poster_email: { type: String, required: true },
+    content: { type: String, required: true },
+  }
+);
 
 /*
 status: [Accepted, Pending] // if rejected of canceled request just delete the item
@@ -153,13 +156,13 @@ const rejectFriendRequest = (req, res, next) => {
 // PAGES-3.A
 const createPost = (req, res, next) => {
   const newPost = new Post({
-    poster_id: req.body.user_id,
+    poster_id: req.body.id,
     content: req.body.content,
   });
 
   newPost.save((err) => {
     if (!err) {
-      res.send(newPost);
+      res.send("napublish na yay");
     } else {
       res.send("Unable to publish post");
     }
@@ -197,19 +200,24 @@ const getFeed = (req, res, next) => {
   }
 
   console.log(req.body.email);
-
-  User.find({ email: req.body.email }, (err, out) => {
+  Post.find({ poster_id: req.body.id }, (err, feed) => {
     if (!err) {
-      Post.find({ poster_id: out._id }, (err, feed) => {
-        if (!err) {
-          console.log(feed)
-          res.send(feed);
-        }
-      });
+      console.log(feed);
+      res.send(feed);
     }
   });
+  // User.find({ email: req.body.email }, (err, out) => {
+  //   if (!err) {
+  //     Post.find({ poster_id: out._id }, (err, feed) => {
+  //       if (!err) {
+  //         console.log(feed);
+  //         res.send(feed);
+  //       }
+  //     });
+  //   }
+  // });
 
-  Post.find({});
+  // Post.find({});
 
   // Friend.find({ receiver_id: req.body.id }, (err, out) => {
   //   if (!err) {
@@ -225,30 +233,26 @@ const checkIfLoggedIn = (req, res) => {
   }
 
   // Token is present. Validate it
-  return jwt.verify(
-    req.cookies.authToken,
-    "BOOKFACE",
-    (err, tokenPayload) => {
-      if (err) {
-        // Scenario 2: FAIL - Error validating token
+  return jwt.verify(req.cookies.authToken, "BOOKFACE", (err, tokenPayload) => {
+    if (err) {
+      // Scenario 2: FAIL - Error validating token
+      return res.send({ isLoggedIn: false });
+    }
+
+    const userId = tokenPayload._id;
+
+    // check if user exists
+    return User.findById(userId, (userErr, user) => {
+      if (userErr || !user) {
+        // Scenario 3: FAIL - Failed to find user based on id inside token payload
         return res.send({ isLoggedIn: false });
       }
 
-      const userId = tokenPayload._id;
-
-      // check if user exists
-      return User.findById(userId, (userErr, user) => {
-        if (userErr || !user) {
-          // Scenario 3: FAIL - Failed to find user based on id inside token payload
-          return res.send({ isLoggedIn: false });
-        }
-
-        // Scenario 4: SUCCESS - token and user id are valid
-        console.log("user is currently logged in");
-        return res.send({ isLoggedIn: true });
-      });
-    }
-  );
+      // Scenario 4: SUCCESS - token and user id are valid
+      console.log("user is currently logged in");
+      return res.send({ isLoggedIn: true });
+    });
+  });
 };
 
 export {

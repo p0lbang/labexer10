@@ -11,7 +11,7 @@ import {
   deletePostById,
   editPostById,
   getFeed,
-  checkIfLoggedIn
+  checkIfLoggedIn,
 } from "./controller.js";
 
 const router = (app) => {
@@ -42,7 +42,7 @@ const router = (app) => {
   app.post("/get/friendrequest/recieved", getUserFriendRequestsRecieved);
   app.post("/cancel/friendrequest/sent", cancelFriendRequest);
   app.post("/reject/friendrequest/recieved", rejectFriendRequest);
-  app.post("/checkifloggedin", checkIfLoggedIn);
+  app.post("/checkifloggedin", checkIfLoggedIn); // works
 };
 
 export default router;

@@ -6,23 +6,9 @@ import FriendItem from "../components/FriendItem";
 import UserPost from "../components/UserPost";
 import SponsorItem from "../components/SponsorItem";
 import Header from "../components/Header";
+import PostForm from "../components/PostForm";
 
 const userData = [{ name: "Van Paul" }];
-
-const postData = [
-  { name: "Van Paul Dayag", time: "11:59 PM", body: "Hello World!" },
-  { name: "User1", time: "11:59 PM", body: "this is an example text" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-  { name: "User2", time: "11:59 PM", body: "this is the body" },
-];
 
 const friendsData = [
   { name: "Miyah Queliste", imageFilename: "friend-01.jpg" },
@@ -41,7 +27,8 @@ class Feed extends React.Component {
       checkedIfLoggedIn: false,
       isLoggedIn: null,
       email: localStorage.getItem("email"),
-      postData: []
+      id: localStorage.getItem("id"),
+      postData: [],
     };
 
     this.logout = this.logout.bind(this);
@@ -65,20 +52,22 @@ class Feed extends React.Component {
         }
       });
 
-    // fetch("http://localhost:3001/get/feed", {
-    //   method: "POST",
-    //   credentials: "include",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     email: this.state.email
-    //   })
-    // })
-    //   .then((response) => response.json())
-    //   .then((body) => {
-    //     this.setState({postData: body})
-    //   });
+    fetch("http://localhost:3001/get/feed", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        id: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        this.setState({ postData: body });
+        console.log(body);
+      });
   }
 
   logout(e) {
@@ -106,35 +95,19 @@ class Feed extends React.Component {
     return (
       <div>
         <Header data={userData} />
-        <aside id="sidebar_left" class="sidebar">
+        <aside id="sidebar_left" className="sidebar">
           <div>Contacts</div>
           <ul>
             <FriendItem data={friendsData} />
           </ul>
         </aside>
-        <aside id="sidebar_right" class="sidebar">
+        <aside id="sidebar_right" className="sidebar">
           <div>Sponsored</div>
           <SponsorItem data={sponsorsData} />
         </aside>
 
         <main id="main">
-          <div id="postFormContainer">
-            <div id="postFormLeft">
-              <img
-                class="post-profile-image"
-                src={require("../images/user-01.jpg")}
-                alt=""
-              />
-            </div>
-            <form id="postForm">
-              <textarea
-                id="postInput"
-                class="input"
-                placeholder="What's on your mind?"
-              ></textarea>
-              <input id="submitPost" type="submit" value="Post" />
-            </form>
-          </div>
+          <PostForm />
           <UserPost data={this.state.postData} />
         </main>
       </div>

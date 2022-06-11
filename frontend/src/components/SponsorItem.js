@@ -7,8 +7,8 @@ class SponsorItem extends React.Component {
       <div>
         {VALUES.map((data) => {
           return (
-            <div class="divider-div">
-              <img class="sponsorImage" src={require("../images/"+data.image)} alt="" />
+            <div className="divider-div">
+              <img className="sponsorImage" src={require("../images/"+data.image)} alt="" />
               <p>{data.text}</p>
             </div>
           );

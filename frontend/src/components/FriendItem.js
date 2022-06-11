@@ -7,7 +7,7 @@ class FriendItem extends React.Component {
       <li>
         {VALUES.map((data) => {
           return (
-            <div class="sidebar-item">
+            <div className="sidebar-item">
               <span>
                 <img src={require("../images/"+data.imageFilename)} alt="" />
               </span>

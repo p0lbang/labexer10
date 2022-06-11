@@ -8,8 +8,8 @@ class Header extends React.Component {
         {VALUES.map((data) => {
           return (
             <header>
-              <div id="header-left" class="header-group">
-                <div class="search-group sidebar-item">
+              <div id="header-left" className="header-group">
+                <div className="search-group sidebar-item">
                   <span>
                     <img src={require("../images/icons/fb.png")} alt="" />
                   </span>
@@ -21,13 +21,13 @@ class Header extends React.Component {
                           viewBox="0 0 16 16"
                           width="1em"
                           height="1em"
-                          class="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 py1f6qlh gl3lb2sf hhz5lgdu"
+                          className="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 py1f6qlh gl3lb2sf hhz5lgdu"
                         >
                           <g
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             transform="translate(-448 -544)"
                           >
-                            <g fill-rule="nonzero">
+                            <g fillRule="nonzero">
                               <path
                                 d="M10.743 2.257a6 6 0 1 1-8.485 8.486 6 6 0 0 1 8.485-8.486zm-1.06 1.06a4.5 4.5 0 1 0-6.365 6.364 4.5 4.5 0 0 0 6.364-6.363z"
                                 transform="translate(448 544)"
@@ -53,7 +53,7 @@ class Header extends React.Component {
                           type="text"
                           name=""
                           id="searchInput"
-                          class="input"
+                          className="input"
                           placeholder="Search Facebook"
                         />
                       </span>
@@ -61,18 +61,17 @@ class Header extends React.Component {
                   </span>
                 </div>
               </div>
-              <div id="header-center" class="header-group">
-              </div>
-              <div id="header-right" class="header-group">
-                <div class="header-group">
-                  <div class="profile-group">
+              <div id="header-center" className="header-group"></div>
+              <div id="header-right" className="header-group">
+                <div className="header-group">
+                  <div className="profile-group">
                     <span>
                       <img src="images/user-01.jpg" alt="" />
                     </span>
                     <span>{data.name}</span>
                   </div>
                   <span>
-                    <div class="icon-svg">
+                    <div className="icon-svg">
                       <svg viewBox="0 0 44 44">
                         <circle cx="7" cy="7" r="6"></circle>
                         <circle cx="22" cy="7" r="6"></circle>
@@ -87,11 +86,11 @@ class Header extends React.Component {
                     </div>
                   </span>
                   <span>
-                    <div class="icon-svg">
+                    <div className="icon-svg">
                       <svg
                         viewBox="0 0 28 28"
                         alt=""
-                        class="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c"
+                        className="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c"
                         fill="currentColor"
                         height="20"
                         width="20"
@@ -101,11 +100,11 @@ class Header extends React.Component {
                     </div>
                   </span>
                   <span>
-                    <div class="icon-svg">
+                    <div className="icon-svg">
                       <svg
                         viewBox="0 0 28 28"
                         alt=""
-                        class="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c"
+                        className="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c"
                         fill="currentColor"
                         height="20"
                         width="20"
@@ -115,13 +114,13 @@ class Header extends React.Component {
                     </div>
                   </span>
                   <span>
-                    <div class="icon-svg">
+                    <div className="icon-svg">
                       <svg
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         width="1em"
                         height="1em"
-                        class="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c jnigpg78 odw8uiq3"
+                        className="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c jnigpg78 odw8uiq3"
                       >
                         <path d="M10 14a1 1 0 0 1-.755-.349L5.329 9.182a1.367 1.367 0 0 1-.205-1.46A1.184 1.184 0 0 1 6.2 7h7.6a1.18 1.18 0 0 1 1.074.721 1.357 1.357 0 0 1-.2 1.457l-3.918 4.473A1 1 0 0 1 10 14z"></path>
                       </svg>
