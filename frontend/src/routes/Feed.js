@@ -51,7 +51,7 @@ class Feed extends React.Component {
           this.setState({ checkedIfLoggedIn: true, isLoggedIn: false });
         }
       });
-
+    //send post request to get feed
     fetch("http://localhost:3001/get/feed", {
       method: "POST",
       credentials: "include",
@@ -78,6 +78,9 @@ class Feed extends React.Component {
     cookies.remove("authToken");
 
     // Delete username in local storage
+    localStorage.removeItem("id");
+    localStorage.removeItem("firstname");
+    localStorage.removeItem("lastname");
     localStorage.removeItem("email");
 
     this.setState({ isLoggedIn: false });

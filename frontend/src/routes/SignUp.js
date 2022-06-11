@@ -45,7 +45,7 @@ class SignUp extends React.Component {
   formSubmit(e) {
     if (!validatePassword(this.state.password)) {
       e.preventDefault();
-      alert("invalid password")
+      alert("invalid password");
       return;
     }
 
@@ -59,23 +59,24 @@ class SignUp extends React.Component {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
-      password: this.state.password
-    }
+      password: this.state.password,
+    };
     // POST request to the server
     e.preventDefault();
-    fetch(
-      "http://localhost:3001/create/user",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(post_data)
-      })
-      .then(response => response.json())
-      .then(body => {
-        if (body.success) { alert("Successfully saved user!"); }
-        else { alert("Failed to save user."); }
+    fetch("http://localhost:3001/create/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post_data),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (body.success) {
+          alert("Successfully saved user!");
+        } else {
+          alert("Failed to save user.");
+        }
       });
   }
 
@@ -100,7 +101,8 @@ class SignUp extends React.Component {
         this.setState({ password: e.target.value });
 
         if (!validatePassword(e.target.value)) {
-          document.getElementById("errorMSGpass").innerHTML = "Password is invalid!";
+          document.getElementById("errorMSGpass").innerHTML =
+            "Password is invalid!";
         } else {
           document.getElementById("errorMSGpass").innerHTML = "";
         }
@@ -109,7 +111,8 @@ class SignUp extends React.Component {
       case "repeatpassword":
         this.setState({ repeatpassword: e.target.value });
         if (this.state.password !== e.target.value) {
-          document.getElementById("errorMSGrepeatpass").innerHTML = "Password does not match!";
+          document.getElementById("errorMSGrepeatpass").innerHTML =
+            "Password does not match!";
           return;
         } else {
           document.getElementById("errorMSGrepeatpass").innerHTML = "";
@@ -118,14 +121,13 @@ class SignUp extends React.Component {
     }
   }
 
-  checkInputs() { }
+  checkInputs() {}
 
   render() {
     return (
       <div>
-
         <form action="" onSubmit={this.formSubmit}>
-          <label className="label" >Firstname:</label>
+          <label className="label">Firstname:</label>
           <input
             type="text"
             id="firstname"
@@ -164,9 +166,7 @@ class SignUp extends React.Component {
             onChange={this.inputHandler}
             required={true}
           />
-          <span id="errorMSGpass" className="errorMessage">
-
-          </span>
+          <span id="errorMSGpass" className="errorMessage"></span>
           <br />
           <label className="label">Confirm Password:</label>
           <input
@@ -178,9 +178,7 @@ class SignUp extends React.Component {
             disabled={true}
             required={true}
           />
-          <span id="errorMSGrepeatpass" className="errorMessage">
-
-          </span>
+          <span id="errorMSGrepeatpass" className="errorMessage"></span>
           <br />
           <input id="btnSignUp" type="submit" value="Sign Up" />
         </form>

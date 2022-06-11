@@ -9,7 +9,7 @@ class FriendItem extends React.Component {
           return (
             <div className="sidebar-item">
               <span>
-                <img src={require("../images/"+data.imageFilename)} alt="" />
+                <img src={require("../images/" + data.imageFilename)} alt="" />
               </span>
               <span>{data.name}</span>
             </div>

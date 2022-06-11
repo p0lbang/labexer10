@@ -1,3 +1,0 @@
-Ted,Nelson,ted.n@w3c.com,83,6194070015
-Tim,Berners-Lee,timbernerslee@w3c.com,65,4355092355
-Van Paul Angelo,Dayag,vcdayag@up.edu.ph,20,0773462404

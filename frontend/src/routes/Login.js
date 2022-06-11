@@ -35,7 +35,7 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      isLoggedIn: false
+      isLoggedIn: false,
     };
 
     this.formSubmit = this.formSubmit.bind(this);
@@ -43,8 +43,8 @@ class Login extends React.Component {
     this.changeLogin = this.changeLogin.bind(this);
   }
 
-  changeLogin(){
-    this.setState({ isLoggedIn: true })
+  changeLogin() {
+    this.setState({ isLoggedIn: true });
   }
 
   formSubmit(e) {
@@ -55,43 +55,37 @@ class Login extends React.Component {
     }
 
     e.preventDefault();
-      // POST request to the server
-    fetch(
-      "http://localhost:3001/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: this.state.email,
-          password: this.state.password
-        })
-      })
-      .then(response => response.json())
-      .then(body => {    
-        if (!body.success){
-          alert("Failed to login!")
-        }
-        else {
+    // POST request to the server
+    fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (!body.success) {
+          alert("Failed to login!");
+        } else {
           const cookies = new Cookies();
-          cookies.set(
-            "authToken",
-            body.token,
-            {
-              path: "localhost:3001/",
-              age: 60*60,
-              sameSite: "lax"
-            });
+          cookies.set("authToken", body.token, {
+            path: "localhost:3001/",
+            age: 60 * 60,
+            sameSite: "lax",
+          });
 
-            localStorage.setItem("id", body.id);
-            localStorage.setItem("email", body.email);
-            localStorage.setItem("firstname", body.firstname);
-            localStorage.setItem("lastname", body.lastname);
-            
-            this.changeLogin();
+          localStorage.setItem("id", body.id);
+          localStorage.setItem("email", body.email);
+          localStorage.setItem("firstname", body.firstname);
+          localStorage.setItem("lastname", body.lastname);
+
+          this.changeLogin();
         }
-      })
+      });
   }
 
   inputHandler(e) {
@@ -108,8 +102,8 @@ class Login extends React.Component {
   }
 
   render() {
-    if(this.state.isLoggedIn){
-      return <Navigate to="/feed" />
+    if (this.state.isLoggedIn) {
+      return <Navigate to="/feed" />;
     }
 
     return (

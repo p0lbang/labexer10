@@ -7,12 +7,12 @@ import Login from "./routes/Login";
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
+      <Routes>
         <Route path="/" element={<Feed />} />
         <Route exact={true} path="/sign-up" element={<SignUp />} />
         <Route exact={true} path="/log-in" element={<Login />} />
         <Route exact={true} path="/feed" element={<Feed />} />
-    </Routes>
+      </Routes>
     </BrowserRouter>
   );
 }
