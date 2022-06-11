@@ -5,7 +5,7 @@ import UserPost from "./components/UserPost";
 import SponsorItem from "./components/SponsorItem";
 import Header from "./components/Header";
 import { BrowserRouter, Route} from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './routes/Home';
 
 const userData = [{ name: "Van Paul" }];
 

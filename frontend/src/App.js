@@ -1,14 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Game from "./pages/Game";
+import Feed from "./routes/Feed";
+import SignUp from "./routes/SignUp";
+import Login from "./routes/Login";
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
-        <Route exact={true} path="/" element={<Home />} />
-        <Route exact={true} path="/game" element={<Game />} />
+        <Route exact={true} path="/sign-up" element={<SignUp />} />
+        <Route exact={true} path="/log-in" element={<Login />} />
+        <Route exact={true} path="/feed" element={<Feed />} />
     </Routes>
     </BrowserRouter>
   );
