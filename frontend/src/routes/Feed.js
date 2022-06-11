@@ -40,7 +40,8 @@ class Feed extends React.Component {
     this.state = {
       checkedIfLoggedIn: false,
       isLoggedIn: null,
-      username: localStorage.getItem("username"),
+      email: localStorage.getItem("email"),
+      postData: []
     };
 
     this.logout = this.logout.bind(this);
@@ -58,12 +59,26 @@ class Feed extends React.Component {
           this.setState({
             checkedIfLoggedIn: true,
             isLoggedIn: true,
-            username: localStorage.getItem("username"),
           });
         } else {
           this.setState({ checkedIfLoggedIn: true, isLoggedIn: false });
         }
       });
+
+    // fetch("http://localhost:3001/get/feed", {
+    //   method: "POST",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     email: this.state.email
+    //   })
+    // })
+    //   .then((response) => response.json())
+    //   .then((body) => {
+    //     this.setState({postData: body})
+    //   });
   }
 
   logout(e) {
@@ -74,13 +89,19 @@ class Feed extends React.Component {
     cookies.remove("authToken");
 
     // Delete username in local storage
-    localStorage.removeItem("username");
+    localStorage.removeItem("email");
 
     this.setState({ isLoggedIn: false });
   }
 
   render() {
-    if(this.state.isLoggedIn){
+    if (!this.state.checkedIfLoggedIn) {
+      return <div></div>;
+    }
+
+    if (!this.state.isLoggedIn) {
+      return <Navigate to="/log-in" />;
+    }
 
     return (
       <div>
@@ -114,14 +135,10 @@ class Feed extends React.Component {
               <input id="submitPost" type="submit" value="Post" />
             </form>
           </div>
-          <UserPost data={postData} />
+          <UserPost data={this.state.postData} />
         </main>
       </div>
     );
-  }else{
-    <Navigate to="/log-in" />
-  }
-
   }
 }
 

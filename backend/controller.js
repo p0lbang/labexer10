@@ -5,6 +5,7 @@ const User = mongoose.model("user");
 
 const Post = mongoose.model("post", {
   poster_id: { type: mongoose.Types.ObjectId, required: true },
+  // poster_email: { type: String, required: true },
   content: { type: String, required: true },
 });
 
@@ -71,7 +72,7 @@ const loginUser = (req, res, next) => {
         id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
-        email: email,
+        email: user.email,
       });
     });
   });
@@ -191,15 +192,63 @@ const editPostById = (req, res, next) => {
 // PAGES-3.C.D.
 const getFeed = (req, res, next) => {
   // check array of ids with all of friends and own id.
-  if (!req.body.id) {
-    return res.send("No id provided");
+  if (!req.body.email) {
+    return res.send("No email provided");
   }
 
-  Friend.find({ receiver_id: req.body.id }, (err, out) => {
+  console.log(req.body.email);
+
+  User.find({ email: req.body.email }, (err, out) => {
     if (!err) {
-      res.send(out);
+      Post.find({ poster_id: out._id }, (err, feed) => {
+        if (!err) {
+          console.log(feed)
+          res.send(feed);
+        }
+      });
     }
   });
+
+  Post.find({});
+
+  // Friend.find({ receiver_id: req.body.id }, (err, out) => {
+  //   if (!err) {
+  //     res.send(out);
+  //   }
+  // });
+};
+
+const checkIfLoggedIn = (req, res) => {
+  if (!req.cookies || !req.cookies.authToken) {
+    // Scenario 1: FAIL - No cookies / no authToken cookie sent
+    return res.send({ isLoggedIn: false });
+  }
+
+  // Token is present. Validate it
+  return jwt.verify(
+    req.cookies.authToken,
+    "BOOKFACE",
+    (err, tokenPayload) => {
+      if (err) {
+        // Scenario 2: FAIL - Error validating token
+        return res.send({ isLoggedIn: false });
+      }
+
+      const userId = tokenPayload._id;
+
+      // check if user exists
+      return User.findById(userId, (userErr, user) => {
+        if (userErr || !user) {
+          // Scenario 3: FAIL - Failed to find user based on id inside token payload
+          return res.send({ isLoggedIn: false });
+        }
+
+        // Scenario 4: SUCCESS - token and user id are valid
+        console.log("user is currently logged in");
+        return res.send({ isLoggedIn: true });
+      });
+    }
+  );
 };
 
 export {
@@ -215,4 +264,5 @@ export {
   deletePostById,
   editPostById,
   getFeed,
+  checkIfLoggedIn,
 };
