@@ -1,5 +1,5 @@
 import React from "react";
-import '../App.css';
+import "./Login.css";
 
 const validatePassword = (input1) => {
   if (input1.length < 8) {
@@ -26,7 +26,7 @@ const validatePassword = (input1) => {
   return false;
 };
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
 
@@ -54,6 +54,29 @@ class Login extends React.Component {
       alert("passwords does not match");
       return;
     }
+
+    let post_data = {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      password: this.state.password
+    }
+    // POST request to the server
+    e.preventDefault();
+    fetch(
+      "http://localhost:3001/create/user",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(post_data)
+      })
+      .then(response => response.json())
+      .then(body => {
+        if (body.success) { alert("Successfully saved user!"); }
+        else { alert("Failed to save user."); }
+      });
   }
 
   inputHandler(e) {
@@ -106,7 +129,7 @@ class Login extends React.Component {
           <input
             type="text"
             id="firstname"
-            className="input"
+            className="login-input"
             value={this.state.firstname}
             onChange={this.inputHandler}
             required={true}
@@ -116,7 +139,7 @@ class Login extends React.Component {
           <input
             type="text"
             id="lastname"
-            className="input"
+            className="login-input"
             value={this.state.lastname}
             onChange={this.inputHandler}
             required={true}
@@ -126,7 +149,7 @@ class Login extends React.Component {
           <input
             type="email"
             id="email"
-            className="input"
+            className="login-input"
             value={this.state.email}
             onChange={this.inputHandler}
             required={true}
@@ -136,7 +159,7 @@ class Login extends React.Component {
           <input
             type="password"
             id="password"
-            className="input"
+            className="login-input"
             value={this.state.password}
             onChange={this.inputHandler}
             required={true}
@@ -149,7 +172,7 @@ class Login extends React.Component {
           <input
             type="password"
             id="repeatpassword"
-            className="input"
+            className="login-input"
             value={this.state.repeatpassword}
             onChange={this.inputHandler}
             disabled={true}
@@ -166,4 +189,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default SignUp;

@@ -2,6 +2,7 @@ import {
   createUser,
   findUserName,
   getUserFriends,
+  loginUser,
   getUserFriendRequestsSent,
   cancelFriendRequest,
   getUserFriendRequestsRecieved,
@@ -28,11 +29,13 @@ const router = (app) => {
     next();
   });
 
-  app.post("/create/Post", createPost);
-  app.post("/edit/Post", editPostById);
-  app.post("/delete/Post", deletePostById);
-  app.post("/get/Feed", getFeed);
-  app.post("/find/User", findUserName);
+  app.post("/create/post", createPost);
+  app.post("/edit/post", editPostById);
+  app.post("/delete/post", deletePostById);
+  app.post("/get/feed", getFeed);
+  app.post("/create/user", createUser); // works
+  app.post("/login", loginUser); // works
+  app.post("/find/user", findUserName);
   app.post("/get/friends", getUserFriends);
   app.post("/get/friendrequest/sent", getUserFriendRequestsSent);
   app.post("/get/friendrequest/recieved", getUserFriendRequestsRecieved);

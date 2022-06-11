@@ -56,15 +56,16 @@ span.errorMessage {
     color: var(--main-text-color);
 }
 
-input {
+input.login-input {
     margin-bottom: 5px;
     color: rgb(213, 209, 204);
-    background-color: #1d2021;
+    background-color: #1e211d;
+    /* background-color: #45b121; */
     border-radius: 5px;
     padding: 10px;
     border: 1px solid #3d4245;
 }
 
-input:disabled {
+input.login-input:disabled {
     background-color: gray;
 }

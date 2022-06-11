@@ -1,5 +1,7 @@
 import React from "react";
-import "../App.css";
+import { Navigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+import "./Login.css";
 
 const validatePassword = (input1) => {
   if (input1.length < 8) {
@@ -33,10 +35,16 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
+      isLoggedIn: false
     };
 
     this.formSubmit = this.formSubmit.bind(this);
     this.inputHandler = this.inputHandler.bind(this);
+    this.changeLogin = this.changeLogin.bind(this);
+  }
+
+  changeLogin(){
+    this.setState({ isLoggedIn: true })
   }
 
   formSubmit(e) {
@@ -45,6 +53,45 @@ class Login extends React.Component {
       alert("invalid password");
       return;
     }
+
+    e.preventDefault();
+      // POST request to the server
+    fetch(
+      "http://localhost:3001/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password
+        })
+      })
+      .then(response => response.json())
+      .then(body => {    
+        if (!body.success){
+          alert("Failed to login!")
+        }
+        else {
+          const cookies = new Cookies();
+          cookies.set(
+            "authToken",
+            body.token,
+            {
+              path: "localhost:3001/",
+              age: 60*60,
+              sameSite: "lax"
+            });
+
+            localStorage.setItem("id", body.id);
+            localStorage.setItem("email", body.email);
+            localStorage.setItem("firstname", body.firstname);
+            localStorage.setItem("lastname", body.lastname);
+            
+            this.changeLogin();
+        }
+      })
   }
 
   inputHandler(e) {
@@ -61,6 +108,10 @@ class Login extends React.Component {
   }
 
   render() {
+    if(this.state.isLoggedIn){
+      return <Navigate to="/feed" />
+    }
+
     return (
       <div>
         <form action="" onSubmit={this.formSubmit}>
@@ -68,7 +119,7 @@ class Login extends React.Component {
           <input
             type="email"
             id="email"
-            className="input"
+            className="login-input"
             value={this.state.email}
             onChange={this.inputHandler}
             required={true}
@@ -78,7 +129,7 @@ class Login extends React.Component {
           <input
             type="password"
             id="password"
-            className="input"
+            className="login-input"
             value={this.state.password}
             onChange={this.inputHandler}
             required={true}
