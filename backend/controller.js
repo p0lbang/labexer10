@@ -170,6 +170,7 @@ const createPost = (req, res, next) => {
 const deletePostById = (req, res, next) => {
   Post.findOneAndDelete({ _id: req.body.id }, (err, game) => {
     if (!err && game) {
+      console.log("deleted " + game._id)
       res.send("Successfully deleted post");
     } else {
       res.send("Unable to delete post");
