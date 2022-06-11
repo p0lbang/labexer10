@@ -6,4 +6,4 @@ import router from "./router.js";
 
 router(app);
 
-app.listen(3000);
+app.listen(3001);
