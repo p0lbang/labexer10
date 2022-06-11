@@ -13,8 +13,8 @@ class UserPost extends React.Component {
                   <img className="post-profile-image" src={require("../images/user-01.jpg")} alt="" />
                 </div>
                 <div className="post-details">
-                  <div className="post-name">{postdetails.name}</div>
-                  <time className="post-time">{postdetails.time}</time>
+                  <div className="post-name">{postdetails._id}</div>
+                  <time className="post-time">{postdetails.timestamp}</time>
                 </div>
               </div>
               <div className="post-content">

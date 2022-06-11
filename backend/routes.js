@@ -30,10 +30,10 @@ const router = (app) => {
     next();
   });
 
-  app.post("/create/post", createPost);
+  app.post("/create/post", createPost); // works
   app.post("/edit/post", editPostById);
   app.post("/delete/post", deletePostById);
-  app.post("/get/feed", getFeed);
+  app.post("/get/feed", getFeed); // works personal feed
   app.post("/create/user", createUser); // works
   app.post("/login", loginUser); // works
   app.post("/find/user", findUserName);

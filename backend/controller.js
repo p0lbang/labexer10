@@ -3,14 +3,12 @@ import jwt from "jsonwebtoken";
 
 const User = mongoose.model("user");
 
-const Post = mongoose.model(
-  "post",
-  {
-    poster_id: { type: mongoose.Types.ObjectId, required: true },
-    // poster_email: { type: String, required: true },
-    content: { type: String, required: true },
-  }
-);
+const Post = mongoose.model("post", {
+  poster_id: { type: mongoose.Types.ObjectId, required: true },
+  // poster_email: { type: String, required: true },
+  content: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
 
 /*
 status: [Accepted, Pending] // if rejected of canceled request just delete the item
@@ -199,13 +197,13 @@ const getFeed = (req, res, next) => {
     return res.send("No email provided");
   }
 
-  console.log(req.body.email);
-  Post.find({ poster_id: req.body.id }, (err, feed) => {
-    if (!err) {
-      console.log(feed);
-      res.send(feed);
-    }
-  });
+  Post.find({ poster_id: req.body.id })
+    .sort({ timestamp: "desc" })
+    .exec(function (err, feed) {
+      if (!err) {
+        res.send(feed);
+      }
+    });
   // User.find({ email: req.body.email }, (err, out) => {
   //   if (!err) {
   //     Post.find({ poster_id: out._id }, (err, feed) => {
