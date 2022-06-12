@@ -75,7 +75,7 @@ class SignUp extends React.Component {
       .then((body) => {
         if (body.success) {
           alert("Successfully saved user!");
-          return <Navigate to="/log-in"/>;
+          return <Navigate to="/log-in" />;
         } else {
           alert("Failed to save user.");
         }
@@ -119,6 +119,8 @@ class SignUp extends React.Component {
         } else {
           document.getElementById("errorMSGrepeatpass").innerHTML = "";
         }
+        break;
+      default:
         break;
     }
   }

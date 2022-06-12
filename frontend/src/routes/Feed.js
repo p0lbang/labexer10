@@ -23,7 +23,7 @@ class Feed extends React.Component {
       firstname: localStorage.getItem("firstname"),
       lastname: localStorage.getItem("lastname"),
       postData: [],
-      friendData: []
+      friendData: [],
     };
 
     this.logout = this.logout.bind(this);
@@ -46,22 +46,22 @@ class Feed extends React.Component {
           this.setState({ checkedIfLoggedIn: true, isLoggedIn: false });
         }
       });
-      
-      fetch("http://localhost:3001/get/friends", {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: this.state.email,
-            id: this.state.id,
-          }),
-        })
-          .then((response) => response.json())
-          .then((body) => {
-            this.setState({ friendData: body });
-          });
+
+    fetch("http://localhost:3001/get/friends", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        id: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        this.setState({ friendData: body });
+      });
   }
 
   logout(e) {
@@ -129,7 +129,7 @@ class Feed extends React.Component {
             data={{
               id: this.state.id,
               email: this.state.email,
-              friendData: this.state.friendData
+              friendData: this.state.friendData,
             }}
           />
         </main>

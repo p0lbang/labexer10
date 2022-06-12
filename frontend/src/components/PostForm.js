@@ -6,7 +6,7 @@ class PostForm extends React.Component {
 
     this.state = {
       imageFilename: "",
-      id: localStorage.getItem("id")
+      id: localStorage.getItem("id"),
     };
 
     this.inputHandler = this.inputHandler.bind(this);

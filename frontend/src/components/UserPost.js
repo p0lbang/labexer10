@@ -40,8 +40,8 @@ class UserPost extends React.Component {
   }
 
   editPostHandler(e) {
-    var newContent = prompt("Edit Post")
-    if(newContent === ""){
+    var newContent = prompt("Edit Post");
+    if (newContent === "") {
       return;
     }
     // Send post request to delete a post
@@ -52,7 +52,7 @@ class UserPost extends React.Component {
       },
       body: JSON.stringify({
         id: e,
-        content: newContent
+        content: newContent,
       }),
     })
       .then((response) => response.json())
@@ -74,15 +74,14 @@ class UserPost extends React.Component {
 
   parseUserId() {
     let allid = [];
-
-    this.state.friendData.map((d) => {
+    for (let index = 0; index < this.state.friendData.length; index++) {
       try {
-        allid.push(d.receiver_id._id);
-        console.log(d.receiver_id._id);
+        allid.push(this.state.friendData[index].receiver_id._id);
       } catch (err) {
-        allid.push(d.requester_id._id);
+        allid.push(this.state.friendData[index].requester_id._id);
       }
-    });
+    }
+
     allid.push(this.state.id);
 
     fetch("http://localhost:3001/get/feed", {
@@ -109,17 +108,17 @@ class UserPost extends React.Component {
       return (
         <div>
           <input
-          className="btnEditPost"
-          type="button"
-          value="Edit"
-          onClick={() => this.editPostHandler(postdetails._id)}
-        />
-        <input
-        className="btnDeletePost"
-        type="button"
-        value="Delete"
-        onClick={() => this.deletePostHandler(postdetails._id)}
-      />
+            className="btnEditPost"
+            type="button"
+            value="Edit"
+            onClick={() => this.editPostHandler(postdetails._id)}
+          />
+          <input
+            className="btnDeletePost"
+            type="button"
+            value="Delete"
+            onClick={() => this.deletePostHandler(postdetails._id)}
+          />
         </div>
       );
     }

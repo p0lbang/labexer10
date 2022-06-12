@@ -42,8 +42,8 @@ const router = (app) => {
   app.post("/accept/friendrequest/recieved", acceptFriendRequest); // works
   app.post("/checkifloggedin", checkIfLoggedIn); // works
   app.post("/get/friendrequest/recieved", getUserFriendRequestsRecieved); // works
-  
-  app.post("/edit/post", editPostById);
+  app.post("/edit/post", editPostById); // works
+
   app.post("/find/user", findUserName);
   app.post("/create/friendrequest", sendFriendRequest);
   app.post("/cancel/friendrequest/sent", cancelFriendRequest);

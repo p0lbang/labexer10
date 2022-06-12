@@ -253,7 +253,7 @@ const deletePostById = (req, res, next) => {
 const editPostById = (req, res, next) => {
   Post.updateOne(
     { _id: req.body.id },
-    {content: req.body.content},
+    { content: req.body.content },
     (err, game) => {
       if (!err && game) {
         res.send("Successfully edited post");
