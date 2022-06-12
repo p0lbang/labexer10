@@ -13,6 +13,7 @@ class Header extends React.Component {
 
     this.searchHandler = this.searchHandler.bind(this);
     this.friendRequest = this.friendRequest.bind(this);
+    this.hideSearch = this.hideSearch.bind(this);
   }
 
   friendRequest(e) {
@@ -62,13 +63,20 @@ class Header extends React.Component {
       });
   }
 
+  hideSearch() {
+    document.getElementById("listofitem").style.display = "none";
+  }
+
   addbtn(user) {
     if (user._id !== this.state.id) {
       return (
         <input
+          className="btnaddfriend"
           type="button"
           value="Add Friend"
-          onClick={() => {this.friendRequest(user._id)}}
+          onClick={() => {
+            this.friendRequest(user._id);
+          }}
         />
       );
     }
@@ -124,6 +132,7 @@ class Header extends React.Component {
                       className="input"
                       placeholder="Search Facebook"
                       onChange={this.searchHandler}
+                      onBlur={this.hideSearch}
                     />
                   </span>
                   <ol id="listofitem">

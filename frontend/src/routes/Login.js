@@ -108,7 +108,7 @@ class Login extends React.Component {
 
     return (
       <div>
-        <form action="" onSubmit={this.formSubmit}>
+        <form id="#login-from" action="" onSubmit={this.formSubmit}>
           <label className="label">Email:</label>
           <input
             type="email"

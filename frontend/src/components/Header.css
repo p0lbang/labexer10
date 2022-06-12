@@ -3,7 +3,7 @@ ol#listofitem{
     width: 240px;
     left: 64px;
     top: 10px;
-    background-color: gray;
+    background-color: var(--separator-color);
     list-style-type: none;
     z-index: -1;
     padding: 30px 8px 9px 8px;
@@ -14,8 +14,14 @@ ol#listofitem{
 
 ol#listofitem > li{
     margin-bottom: 10px;
-    border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
+    font-family: inherit;
+    border: 1px solid gray;
+}
+
+input.btnaddfriend{
+    width: 100%;
+    margin-top: 5px;
     font-family: inherit;
 }

@@ -92,8 +92,8 @@ const findUserName = (req, res, next) => {
   User.find(
     {
       $or: [
-        { firstname: { $regex: ".*" + req.body.name + ".*" } },
-        { lastname: { $regex: ".*" + req.body.name + ".*" } },
+        { firstname: { $regex: ".*" + req.body.name + ".*",$options:'i' } },
+        { lastname: { $regex: ".*" + req.body.name + ".*",$options:'i' } },
       ],
     },
     (err, out) => {

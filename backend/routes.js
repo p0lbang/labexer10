@@ -45,9 +45,8 @@ const router = (app) => {
   app.post("/edit/post", editPostById); // works
   app.post("/find/user", findUserName); // works
   app.post("/send/friendrequest", sendFriendRequest); // works
-
-  app.post("/cancel/friendrequest/sent", rejectFriendRequest);
-  app.post("/get/friendrequest/sent", getUserFriendRequestsSent);
+  app.post("/cancel/friendrequest/sent", rejectFriendRequest); // works
+  app.post("/get/friendrequest/sent", getUserFriendRequestsSent); // works
 };
 
 export default router;
