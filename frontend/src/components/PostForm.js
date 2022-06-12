@@ -13,13 +13,14 @@ class PostForm extends React.Component {
   }
 
   inputHandler(e) {
-    let txtarea = document.getElementById("postInput").value;
+    e.preventDefault();
+    let txtarea = document.getElementById("postInput");
 
-    if (txtarea === "") {
+    if (txtarea.value === "") {
       e.preventDefault();
       return;
     }
-    
+
     fetch("http://localhost:3001/create/post", {
       method: "POST",
       headers: {
@@ -27,15 +28,17 @@ class PostForm extends React.Component {
       },
       body: JSON.stringify({
         id: this.state.id,
-        content: txtarea,
+        content: txtarea.value,
       }),
     })
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          alert("Failed to publish post!");
+          console.log("Failed to publish post!");
         }
-        console.log(body);
+        // console.log(body);
+        console.log("test")
+        window.location.reload(false);
       });
   }
 

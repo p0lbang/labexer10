@@ -27,8 +27,9 @@ class FriendRequestSent extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          alert("Failed to cancel fr!");
+          console.log("Failed to cancel friend request!");
         }
+        window.location.reload(false);
       });
   }
 
@@ -80,7 +81,7 @@ class FriendRequestSent extends React.Component {
               <div>
                 <input
                   type="button"
-                  value="Reject"
+                  value="Cancel"
                   onClick={() => this.cancelRequest(data.receiver_id._id)}
                 />
               </div>

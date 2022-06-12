@@ -210,9 +210,9 @@ const createPost = (req, res, next) => {
 
   newPost.save((err) => {
     if (!err) {
-      res.send("napublish na yay");
+      res.send({success: true, message: "Succesfully published post"});
     } else {
-      res.send("Unable to publish post");
+      res.send({success: true, message: "Unable to publish post"});
     }
   });
 };

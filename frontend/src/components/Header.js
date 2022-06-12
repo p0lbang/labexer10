@@ -33,6 +33,7 @@ class Header extends React.Component {
           alert("Failed to publish post!");
         }
         console.log(body);
+        window.location.reload(false);
       });
   }
 
@@ -79,6 +80,14 @@ class Header extends React.Component {
           }}
         />
       );
+    }
+  }
+
+  parseImagefile(imageFilename) {
+    try {
+      return require("../images/" + imageFilename);
+    } catch (err) {
+      return require("../images/default-profile.jpg");
     }
   }
 
@@ -132,7 +141,7 @@ class Header extends React.Component {
                       className="input"
                       placeholder="Search Facebook"
                       onChange={this.searchHandler}
-                      onBlur={this.hideSearch}
+                      // onBlur={this.hideSearch}
                     />
                   </span>
                   <ol id="listofitem">
@@ -157,55 +166,16 @@ class Header extends React.Component {
             <div className="header-group">
               <div className="profile-group">
                 <span>
-                  <img src="images/user-01.jpg" alt="" />
+                  <img
+                    src={this.parseImagefile(this.props.data.imageFilename)}
+                    alt=""
+                  />
                 </span>
                 <span>{this.props.data.name}</span>
               </div>
               <span>
-                <div className="icon-svg">
-                  <svg viewBox="0 0 44 44">
-                    <circle cx="7" cy="7" r="6"></circle>
-                    <circle cx="22" cy="7" r="6"></circle>
-                    <circle cx="37" cy="7" r="6"></circle>
-                    <circle cx="7" cy="22" r="6"></circle>
-                    <circle cx="22" cy="22" r="6"></circle>
-                    <circle cx="37" cy="22" r="6"></circle>
-                    <circle cx="7" cy="37" r="6"></circle>
-                    <circle cx="22" cy="37" r="6"></circle>
-                    <circle cx="37" cy="37" r="6"></circle>
-                  </svg>
-                </div>
-              </span>
-              <span>
-                <div className="icon-svg">
-                  <svg
-                    viewBox="0 0 28 28"
-                    alt=""
-                    className="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c"
-                    fill="currentColor"
-                    height="20"
-                    width="20"
-                  >
-                    <path d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z"></path>
-                  </svg>
-                </div>
-              </span>
-              <span>
                 <div className="icon-svg" onClick={this.props.handleClick}>
                   <i className="icon2 icon-logout"></i>
-                </div>
-              </span>
-              <span>
-                <div className="icon-svg">
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    width="1em"
-                    height="1em"
-                    className="a8c37x1j ms05siws l3qrxjdp b7h9ocf4 rs22bh7c jnigpg78 odw8uiq3"
-                  >
-                    <path d="M10 14a1 1 0 0 1-.755-.349L5.329 9.182a1.367 1.367 0 0 1-.205-1.46A1.184 1.184 0 0 1 6.2 7h7.6a1.18 1.18 0 0 1 1.074.721 1.357 1.357 0 0 1-.2 1.457l-3.918 4.473A1 1 0 0 1 10 14z"></path>
-                  </svg>
                 </div>
               </span>
             </div>

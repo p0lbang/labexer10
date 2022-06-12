@@ -87,6 +87,7 @@ class FriendRequest extends React.Component {
               <div>
                 <span>
                   <img
+                    className="sidebar-item-image"
                     src={this.parseImagefile(data.imageFilename)}
                     alt=""
                   />
@@ -101,12 +102,18 @@ class FriendRequest extends React.Component {
                 <input
                   type="button"
                   value="Accept"
-                  onClick={() => this.acceptRequest(data.requester_id._id)}
+                  onClick={() => {
+                    this.acceptRequest(data.requester_id._id);
+                    window.location.reload(false);
+                  }}
                 />
                 <input
                   type="button"
                   value="Reject"
-                  onClick={() => this.rejectRequest(data.requester_id._id)}
+                  onClick={() => {
+                    this.rejectRequest(data.requester_id._id);
+                    window.location.reload(false);
+                  }}
                 />
               </div>
             </div>

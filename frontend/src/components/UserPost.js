@@ -33,9 +33,9 @@ class UserPost extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          alert("Failed to publish post!");
+          console.log("Failed to publish post!");
         }
-        // console.log(body);
+        window.location.reload(false);
       });
   }
 
@@ -58,9 +58,9 @@ class UserPost extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          alert("Failed to publish post!");
+          console.log("Failed to publish post!");
         }
-        // console.log(body);
+        window.location.reload(false);
       });
   }
 
