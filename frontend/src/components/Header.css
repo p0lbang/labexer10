@@ -1,0 +1,21 @@
+ol#listofitem{
+    position: absolute;
+    width: 240px;
+    left: 64px;
+    top: 10px;
+    background-color: gray;
+    list-style-type: none;
+    z-index: -1;
+    padding: 30px 8px 9px 8px;
+    border-radius: 5px;
+    min-height: 0;
+    display: none;
+}
+
+ol#listofitem > li{
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: inherit;
+}

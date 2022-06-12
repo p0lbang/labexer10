@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import "./App.css";
+import FriendRequestSent from "../components/FriendRequestSent";
 import FriendRequest from "../components/FriendRequest";
 import FriendItem from "../components/FriendItem";
 import UserPost from "../components/UserPost";
@@ -99,7 +100,7 @@ class Feed extends React.Component {
           handleClick={this.logout}
         />
         <aside id="sidebar_left" className="sidebar">
-          <div>Friend Requests</div>
+        <div>Friend Requests</div>
           <ul>
             <FriendRequest
               data={{
@@ -108,7 +109,16 @@ class Feed extends React.Component {
               }}
             />
           </ul>
-          <div>Contacts</div>
+          <div>Pending Friend Requests</div>
+          <ul>
+            <FriendRequestSent
+              data={{
+                id: this.state.id,
+                email: this.state.email,
+              }}
+            />
+          </ul>
+          <div>Friends</div>
           <ul>
             <FriendItem
               data={{

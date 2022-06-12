@@ -13,11 +13,15 @@ const Post = mongoose.model("post", {
 /*
 status: [Accepted, Pending] // if rejected of canceled request just delete the item
 */
-const Friend = mongoose.model("friend", {
+
+const FriendSchema = new mongoose.Schema({
   requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   receiver_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   status: { type: String, required: true },
 });
+FriendSchema.index({ requester_id: 1, receiver_id: 1 }, { unique: true });
+
+const Friend = mongoose.model("friend", FriendSchema);
 
 /* USER RELATED STUFF */
 // PAGES-1.B
@@ -86,11 +90,19 @@ const findUserName = (req, res, next) => {
     return res.send("No id provided");
   }
 
-  Friend.findOne({ firstName: req.body.name }, (err, out) => {
-    if (!err) {
-      res.send(out);
+  User.find(
+    {
+      $or: [
+        { firstname: { $regex: ".*" + req.body.name + ".*" } },
+        { lastname: { $regex: ".*" + req.body.name + ".*" } },
+      ],
+    },
+    (err, out) => {
+      if (!err) {
+        res.send(out);
+      }
     }
-  });
+  );
 };
 
 const getUserFriends = async (req, res, next) => {
@@ -142,21 +154,13 @@ const getUserFriendRequestsSent = (req, res, next) => {
     return res.send("No id provided");
   }
 
-  Friend.find({ requester_id: req.body.id, status: "Pending" }, (err, out) => {
-    if (!err) {
-      res.send(out);
-    }
-  });
-};
-
-const cancelFriendRequest = (req, res, next) => {
-  Friend.findOneAndDelete({ _id: req.body.id }, (err, game) => {
-    if (!err && game) {
-      res.send("Successfully canceled friend request");
-    } else {
-      res.send("Unable to cancel friend request");
-    }
-  });
+  Friend.find({ requester_id: req.body.id, status: "Pending" })
+    .populate("receiver_id")
+    .exec(function (err, out) {
+      if (!err) {
+        res.send(out);
+      }
+    });
 };
 
 const getUserFriendRequestsRecieved = (req, res, next) => {
@@ -316,7 +320,6 @@ export {
   getUserFriends,
   loginUser,
   getUserFriendRequestsSent,
-  cancelFriendRequest,
   getUserFriendRequestsRecieved,
   rejectFriendRequest,
   createPost,

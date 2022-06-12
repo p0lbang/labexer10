@@ -1,7 +1,69 @@
 import React from "react";
+import "./Header.css";
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: localStorage.getItem("id"),
+      search: "",
+      results: [],
+    };
+
+    this.searchHandler = this.searchHandler.bind(this);
+    this.friendRequest = this.friendRequest.bind(this);
+  }
+
+  friendRequest(e) {
+    fetch("http://localhost:3001/send/friendrequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requester_id: this.state.id,
+        receiver_id: e,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (!body.success) {
+          alert("Failed to publish post!");
+        }
+        console.log(body);
+      });
+  }
+
+  searchHandler(e) {
+    this.setState({ search: e.target.value });
+    if (e.target.value === "") {
+      return;
+    }
+
+    fetch("http://localhost:3001/find/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: e.target.value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (body.length === 0) {
+          document.getElementById("listofitem").style.display = "none";
+        } else {
+          document.getElementById("listofitem").style.display = "block";
+          this.setState({ results: body });
+          console.log(body);
+        }
+      });
+  }
+
   render() {
+    const USERS = this.state.results;
     return (
       <div>
         <header>
@@ -49,8 +111,28 @@ class Header extends React.Component {
                       id="searchInput"
                       className="input"
                       placeholder="Search Facebook"
+                      onChange={this.searchHandler}
                     />
                   </span>
+                  <ol id="listofitem">
+                    {USERS.map((user) => {
+                      return (
+                        <li>
+                          <div>
+                            {user.firstname} {user.lastname}
+                          </div>
+                          <div>{user.email}</div>
+                          <div>
+                            <input
+                              type="button"
+                              value="Add Friend"
+                              onClick={this.friendRequest(user._id)}
+                            />
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
                 </div>
               </span>
             </div>

@@ -4,7 +4,6 @@ import {
   getUserFriends,
   loginUser,
   getUserFriendRequestsSent,
-  cancelFriendRequest,
   getUserFriendRequestsRecieved,
   rejectFriendRequest,
   createPost,
@@ -43,10 +42,10 @@ const router = (app) => {
   app.post("/checkifloggedin", checkIfLoggedIn); // works
   app.post("/get/friendrequest/recieved", getUserFriendRequestsRecieved); // works
   app.post("/edit/post", editPostById); // works
+  app.post("/find/user", findUserName); // works
+  app.post("/send/friendrequest", sendFriendRequest); // works
 
-  app.post("/find/user", findUserName);
-  app.post("/create/friendrequest", sendFriendRequest);
-  app.post("/cancel/friendrequest/sent", cancelFriendRequest);
+  app.post("/cancel/friendrequest/sent", rejectFriendRequest);
   app.post("/get/friendrequest/sent", getUserFriendRequestsSent);
 };
 
