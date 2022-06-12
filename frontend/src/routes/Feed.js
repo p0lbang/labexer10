@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import "./App.css";
+import FriendRequest from "../components/FriendRequest";
 import FriendItem from "../components/FriendItem";
 import UserPost from "../components/UserPost";
 import SponsorItem from "../components/SponsorItem";
@@ -93,6 +94,13 @@ class Feed extends React.Component {
       <div>
         <Header data={userData} handleClick={this.logout} />
         <aside id="sidebar_left" className="sidebar">
+        <div>Friend Requests</div>
+          <ul>
+            <FriendRequest data={{
+              id: this.state.id,
+              email: this.state.email,
+            }} />
+          </ul>
           <div>Contacts</div>
           <ul>
             <FriendItem data={{

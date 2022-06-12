@@ -68,7 +68,7 @@ class UserPost extends React.Component {
                   />
                 </div>
                 <div className="post-details">
-                  <div className="post-name">{postdetails._id}</div>
+                  <div className="post-name">{postdetails.poster_id.firstname + " " + postdetails.poster_id.lastname}</div>
                   <time className="post-time">{postdetails.timestamp}</time>
                 </div>
                 <div>

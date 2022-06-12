@@ -37,13 +37,19 @@ class FriendRequest extends React.Component {
         {this.state.DisplayData.map((data) => {
           return (
             <div className="sidebar-item">
+              <div>
               <span>
                 <img
                   src={'require("../images/" + data.imageFilename)'}
                   alt=""
                 />
               </span>
-              <span>{data.receiver_id}</span>
+              <span>{data.requester_id}</span>
+              </div>
+              <div>
+                <input type="button" value="Accept" />
+                <input type="button" value="Reject" />
+              </div>
             </div>
           );
         })}

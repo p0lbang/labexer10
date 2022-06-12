@@ -13,14 +13,14 @@ class PostForm extends React.Component {
 
     if (txtarea === "") {
 
-      fetch("http://localhost:3001/create/friend", {
+      fetch("http://localhost:3001/create/friendrequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         requester_id: localStorage.getItem("id"),
-        receiver_id: "62a4bed9f903bd7828059abb",
+        receiver_id: "62a4bf23f903bd7828059abf",
       }),
     })
       .then((response) => response.json())

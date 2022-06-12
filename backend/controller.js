@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const User = mongoose.model("user");
 
 const Post = mongoose.model("post", {
-  poster_id: { type: mongoose.Types.ObjectId, required: true },
+  poster_id: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
   // poster_email: { type: String, required: true },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
@@ -14,8 +14,8 @@ const Post = mongoose.model("post", {
 status: [Accepted, Pending] // if rejected of canceled request just delete the item
 */
 const Friend = mongoose.model("friend", {
-  requester_id: { type: mongoose.Types.ObjectId, required: true },
-  receiver_id: { type: mongoose.Types.ObjectId, required: true },
+  requester_id: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
+  receiver_id: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
   status: { type: String, required: true },
 });
 
@@ -240,9 +240,11 @@ const getFeed = (req, res, next) => {
   }
 
   Post.find({ poster_id: req.body.id })
+    .populate('poster_id')
     .sort({ timestamp: "desc" })
     .exec(function (err, feed) {
       if (!err) {
+        console.log(feed);
         res.send(feed);
       }
     });
