@@ -79,7 +79,6 @@ class Feed extends React.Component {
     localStorage.removeItem("email");
 
     this.setState({ isLoggedIn: false });
-    // return <Navigate to="/log-in" />;
   }
 
   render() {

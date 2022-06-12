@@ -27,9 +27,8 @@ class FriendRequest extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          alert("Failed to reject fr!");
+          console.log("Failed to accept fr!");
         }
-        console.log(body);
       });
   }
 
@@ -49,7 +48,6 @@ class FriendRequest extends React.Component {
         if (!body.success) {
           alert("Failed to reject fr!");
         }
-        console.log(body);
       });
   }
 
@@ -69,7 +67,6 @@ class FriendRequest extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         this.setState({ DisplayData: body });
-        console.log(body);
       });
   }
 

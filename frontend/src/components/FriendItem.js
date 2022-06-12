@@ -27,7 +27,6 @@ class FriendItem extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         this.setState({ DisplayData: body });
-        console.log(body);
       });
   }
 

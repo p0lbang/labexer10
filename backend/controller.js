@@ -37,7 +37,6 @@ const createUser = (req, res, next) => {
     if (!err) {
       return res.send({ success: true });
     } else {
-      console.log(err);
       return res.send({ success: false });
     }
   });
@@ -116,33 +115,14 @@ const getUserFriends = async (req, res, next) => {
       .equals("Accepted")
       .populate("receiver_id")
       .select("receiver_id");
-    // .exec(function (err, out) {
-    //   if (!err) {
-    //     console.log("requester");
-    //     console.log(out);
-    //     allFriends = allFriends.concat(out);
-    //     return out;
-    //   }
-    // });
 
     var rec = await Friend.find({ receiver_id: req.body.id })
       .where("status")
       .equals("Accepted")
       .populate("requester_id")
       .select("requester_id");
-    // .exec(function (err, out) {
-    //   if (!err) {
-    //     console.log("receiver");
-    //     console.log(out);
-    //     allFriends = allFriends.concat(out);
-    //     console.log("hatdog")
-    //     console.log(allFriends)
-    //     return out;
-    //   }
-    // });
+
     allFriends = allFriends.concat(reque, rec);
-    console.log("hatdoglods");
-    console.log(allFriends);
     res.send(allFriends);
   } catch (err) {
     next(err);

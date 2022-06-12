@@ -62,6 +62,18 @@ class Header extends React.Component {
       });
   }
 
+  addbtn(user) {
+    if (user._id !== this.state.id) {
+      return (
+        <input
+          type="button"
+          value="Add Friend"
+          onClick={() => {this.friendRequest(user._id)}}
+        />
+      );
+    }
+  }
+
   render() {
     const USERS = this.state.results;
     return (
@@ -122,13 +134,7 @@ class Header extends React.Component {
                             {user.firstname} {user.lastname}
                           </div>
                           <div>{user.email}</div>
-                          <div>
-                            <input
-                              type="button"
-                              value="Add Friend"
-                              onClick={this.friendRequest(user._id)}
-                            />
-                          </div>
+                          <div>{this.addbtn(user)}</div>
                         </li>
                       );
                     })}
