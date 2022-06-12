@@ -43,7 +43,7 @@ class FriendItem extends React.Component {
                   alt=""
                 />
               </span>
-              <span>{data.receiver_id}</span>
+              <span>{data.receiver_id.firstname + " " + data.receiver_id.lastname}</span>
             </div>
           );
         })}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import "./App.css";
@@ -8,8 +8,6 @@ import UserPost from "../components/UserPost";
 import SponsorItem from "../components/SponsorItem";
 import Header from "../components/Header";
 import PostForm from "../components/PostForm";
-
-const userData = [{ name: "Van Paul" }];
 
 const sponsorsData = [{ text: "Keychron k8", image: "ads.gif" }];
 
@@ -22,6 +20,8 @@ class Feed extends React.Component {
       isLoggedIn: null,
       email: localStorage.getItem("email"),
       id: localStorage.getItem("id"),
+      firstname: localStorage.getItem("firstname"),
+      lastname: localStorage.getItem("lastname"),
       postData: [],
     };
 
@@ -92,7 +92,9 @@ class Feed extends React.Component {
 
     return (
       <div>
-        <Header data={userData} handleClick={this.logout} />
+        <Header data={{
+          name: this.state.firstname + " " + this.state.lastname
+        }} handleClick={this.logout} />
         <aside id="sidebar_left" className="sidebar">
         <div>Friend Requests</div>
           <ul>

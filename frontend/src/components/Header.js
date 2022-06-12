@@ -2,11 +2,8 @@ import React from "react";
 
 class Header extends React.Component {
   render() {
-    const VALUES = this.props.data;
     return (
       <div>
-        {VALUES.map((data) => {
-          return (
             <header>
               <div id="header-left" className="header-group">
                 <div className="search-group sidebar-item">
@@ -68,7 +65,7 @@ class Header extends React.Component {
                     <span>
                       <img src="images/user-01.jpg" alt="" />
                     </span>
-                    <span>{data.name}</span>
+                    <span>{this.props.data.name}</span>
                   </div>
                   <span>
                     <div className="icon-svg">
@@ -100,12 +97,9 @@ class Header extends React.Component {
                     </div>
                   </span>
                   <span>
-                    <a onClick={this.props.handleClick}>
-
-                    <div className="icon-svg">
+                    <div className="icon-svg" onClick={this.props.handleClick}>
                       <i className="icon2 icon-logout"></i>
                     </div>
-                    </a>
                   </span>
                   <span>
                     <div className="icon-svg">
@@ -123,8 +117,6 @@ class Header extends React.Component {
                 </div>
               </div>
             </header>
-          );
-        })}
       </div>
     );
   }

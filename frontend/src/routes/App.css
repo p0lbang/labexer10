@@ -459,6 +459,6 @@ input#submitPost {
   color: var(--main-text-color);
 }
 
-a:hover{
+.icon-svg:hover{
   cursor: pointer;
 }

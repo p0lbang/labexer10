@@ -9,6 +9,49 @@ class FriendRequest extends React.Component {
       email: this.props.data.email,
       DisplayData: [],
     };
+
+    this.acceptRequest = this.acceptRequest.bind(this);
+    this.rejectRequest = this.rejectRequest.bind(this);
+  }
+  acceptRequest(e){
+    
+    fetch("http://localhost:3001/accept/friendrequest/recieved", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requester_id: e,
+        receiver_id: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (!body.success) {
+          alert("Failed to reject fr!");
+        }
+        console.log(body);
+      });
+  }
+
+  rejectRequest(e){
+    fetch("http://localhost:3001/reject/friendrequest/recieved", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requester_id: e,
+        receiver_id: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (!body.success) {
+          alert("Failed to reject fr!");
+        }
+        console.log(body);
+      });
   }
 
   componentDidMount() {
@@ -44,11 +87,11 @@ class FriendRequest extends React.Component {
                   alt=""
                 />
               </span>
-              <span>{data.requester_id}</span>
+              <span>{data.requester_id.firstname + " " +data.requester_id.lastname}</span>
               </div>
               <div>
-                <input type="button" value="Accept" />
-                <input type="button" value="Reject" />
+                <input type="button" value="Accept" onClick={() => this.acceptRequest(data.requester_id._id)}/>
+                <input type="button" value="Reject" onClick={() => this.rejectRequest(data.requester_id._id)}/>
               </div>
             </div>
           );

@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const User = mongoose.model("user");
 
 const Post = mongoose.model("post", {
-  poster_id: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
+  poster_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   // poster_email: { type: String, required: true },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
@@ -14,8 +14,8 @@ const Post = mongoose.model("post", {
 status: [Accepted, Pending] // if rejected of canceled request just delete the item
 */
 const Friend = mongoose.model("friend", {
-  requester_id: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
-  receiver_id: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
+  requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
+  receiver_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   status: { type: String, required: true },
 });
 
@@ -104,14 +104,15 @@ const getUserFriends = (req, res, next) => {
   //   }
   // });
   Friend.find({ requester_id: req.body.id })
-  .where('status').equals('Accepted')
-  .select('receiver_id').exec(
-    function(err, out){
+    .where("status")
+    .equals("Accepted")
+    .populate("receiver_id")
+    .select("receiver_id")
+    .exec(function (err, out) {
       if (!err) {
         res.send(out);
       }
-    }
-  );
+    });
 };
 
 const getUserFriendRequestsSent = (req, res, next) => {
@@ -141,19 +142,37 @@ const getUserFriendRequestsRecieved = (req, res, next) => {
     return res.send("No id provided");
   }
 
-  Friend.find({ receiver_id: req.body.id, status: "Pending" }, (err, out) => {
-    if (!err) {
-      res.send(out);
-    }
-  });
+  Friend.find({ receiver_id: req.body.id, status: "Pending" })
+    .populate("requester_id")
+    .exec(function (err, out) {
+      if (!err) {
+        res.send(out);
+      }
+    });
 };
 
 const rejectFriendRequest = (req, res, next) => {
-  Friend.findOneAndDelete({ _id: req.body.id }, (err, game) => {
+  Friend.findOneAndDelete(
+    { requester_id: req.body.requester_id, receiver_id: req.body.receiver_id },
+    (err, game) => {
+      if (!err && game) {
+        res.send("Successfully rejected friend request");
+      } else {
+        res.send("Unable to reject friend request");
+      }
+    }
+  );
+};
+
+const acceptFriendRequest = (req, res, next) => {
+  Friend.findOneAndUpdate(
+    { requester_id: req.body.requester_id, receiver_id: req.body.receiver_id },
+    { $set: { status: "Accepted" } }
+  ).exec(function (err, game) {
     if (!err && game) {
-      res.send("Successfully rejected friend request");
+      res.send("Successfully accepted friend request");
     } else {
-      res.send("Unable to reject friend request");
+      res.send("Unable to accepted friend request");
     }
   });
 };
@@ -183,9 +202,9 @@ const sendFriendRequest = (req, res, next) => {
 
   newFriend.save((err) => {
     if (!err) {
-      res.send({success: true});
+      res.send({ success: true });
     } else {
-      res.send({success: true});
+      res.send({ success: true });
     }
   });
 };
@@ -211,7 +230,7 @@ const createPost = (req, res, next) => {
 const deletePostById = (req, res, next) => {
   Post.findOneAndDelete({ _id: req.body.id }, (err, game) => {
     if (!err && game) {
-      console.log("deleted " + game._id)
+      console.log("deleted " + game._id);
       res.send("Successfully deleted post");
     } else {
       res.send("Unable to delete post");
@@ -240,7 +259,7 @@ const getFeed = (req, res, next) => {
   }
 
   Post.find({ poster_id: req.body.id })
-    .populate('poster_id')
+    .populate("poster_id")
     .sort({ timestamp: "desc" })
     .exec(function (err, feed) {
       if (!err) {
@@ -312,5 +331,6 @@ export {
   getFeed,
   checkIfLoggedIn,
   createFriend,
-  sendFriendRequest
+  sendFriendRequest,
+  acceptFriendRequest,
 };
