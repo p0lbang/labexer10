@@ -205,27 +205,66 @@ input#searchInput {
   padding-left: 16px;
 }
 
+.sidebar-item-group{
+  border-radius: 5px;
+}
+
+.sidebar-item-group-user {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 16px;
+  padding-top: 5px;
+}
+
+.sidebar-item-group-buttons {
+  text-align: left;
+  padding-left: 16px;
+  padding-bottom: 5px;
+}
+
+.sidebar-item-group-buttons > input {
+  background-color: var(--separator-color);
+  color: var(--icon-color);
+  border: none;
+  width: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.sidebar-item-group-buttons > input:hover{
+  cursor: pointer;
+}
+
 .sidebar-item>span>img {
   height: 36px;
   width: 36px;
   border-radius: 100%;
 }
 
+.sidebar-item:hover,
+.sidebar-item-group:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.sidebar-item>span:nth-child(2) {
+  padding-left: 12px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.sidebar-item-group >div >span:nth-child(2) {
+  padding-left: 12px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
 .sidebar-item-image {
   height: 36px;
   width: 36px;
   border-radius: 100%;
-}
-
-.sidebar-item:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-item>span:nth-child(2) {
-  padding-left: 12px;
-  font-size: 0.9375rem;
-  vertical-align: middle;
 }
 
 #main {
@@ -468,3 +507,26 @@ input#submitPost {
 .icon-svg:hover {
   cursor: pointer;
 }
+
+/* POST FUNCTIONAL BUTTONS */
+
+input.btnfunctions{
+  background-color: var(--separator-color);
+  color: var(--icon-color);
+  border: none;
+  width: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+div#postSpacer{
+  margin: auto;
+  width: 100%;
+}
+
+div#postButtons{
+  width: 100%;
+  text-align: right;
+}
+

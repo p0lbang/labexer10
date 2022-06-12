@@ -83,8 +83,8 @@ class FriendRequest extends React.Component {
       <li>
         {this.state.DisplayData.map((data) => {
           return (
-            <div className="sidebar-item">
-              <div>
+            <div className="sidebar-item-group">
+              <div className="sidebar-item-group-user">
                 <span>
                   <img
                     className="sidebar-item-image"
@@ -98,11 +98,12 @@ class FriendRequest extends React.Component {
                     data.requester_id.lastname}
                 </span>
               </div>
-              <div>
+              <div className="sidebar-item-group-buttons">
                 <input
                   type="button"
                   value="Accept"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     this.acceptRequest(data.requester_id._id);
                     window.location.reload(false);
                   }}
@@ -110,13 +111,49 @@ class FriendRequest extends React.Component {
                 <input
                   type="button"
                   value="Reject"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     this.rejectRequest(data.requester_id._id);
                     window.location.reload(false);
                   }}
                 />
               </div>
             </div>
+
+            // <div className="sidebar-item">
+            //   <div>
+            //     <span>
+            //       <img
+            //         className="sidebar-item-image"
+            //         src={this.parseImagefile(data.imageFilename)}
+            //         alt=""
+            //       />
+            //     </span>
+            //     <span>
+            //       {data.requester_id.firstname +
+            //         " " +
+            //         data.requester_id.lastname}
+            //     </span>
+            //   </div>
+            //   <div>
+            //     <input
+            //       type="button"
+            //       value="Accept"
+            //       onClick={() => {
+            //         this.acceptRequest(data.requester_id._id);
+            //         window.location.reload(false);
+            //       }}
+            //     />
+            //     <input
+            //       type="button"
+            //       value="Reject"
+            //       onClick={() => {
+            //         this.rejectRequest(data.requester_id._id);
+            //         window.location.reload(false);
+            //       }}
+            //     />
+            //   </div>
+            // </div>
           );
         })}
       </li>

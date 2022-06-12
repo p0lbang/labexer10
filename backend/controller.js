@@ -92,8 +92,8 @@ const findUserName = (req, res, next) => {
   User.find(
     {
       $or: [
-        { firstname: { $regex: ".*" + req.body.name + ".*",$options:'i' } },
-        { lastname: { $regex: ".*" + req.body.name + ".*",$options:'i' } },
+        { firstname: { $regex: ".*" + req.body.name + ".*", $options: "i" } },
+        { lastname: { $regex: ".*" + req.body.name + ".*", $options: "i" } },
       ],
     },
     (err, out) => {
@@ -162,9 +162,12 @@ const rejectFriendRequest = (req, res, next) => {
     { requester_id: req.body.requester_id, receiver_id: req.body.receiver_id },
     (err, game) => {
       if (!err && game) {
-        res.send("Successfully rejected friend request");
+        res.send({
+          succes: true,
+          message: "Successfully rejected friend request",
+        });
       } else {
-        res.send("Unable to reject friend request");
+        res.send({ succes: false, message: "Unable to reject friend request" });
       }
     }
   );
@@ -176,9 +179,12 @@ const acceptFriendRequest = (req, res, next) => {
     { $set: { status: "Accepted" } }
   ).exec(function (err, game) {
     if (!err && game) {
-      res.send("Successfully accepted friend request");
+      res.send({
+        succes: true,
+        message: "Successfully accepted friend request",
+      });
     } else {
-      res.send("Unable to accepted friend request");
+      res.send({ succes: false, message: "Unable to accepted friend request" });
     }
   });
 };
@@ -210,9 +216,9 @@ const createPost = (req, res, next) => {
 
   newPost.save((err) => {
     if (!err) {
-      res.send({success: true, message: "Succesfully published post"});
+      res.send({ success: true, message: "Succesfully published post" });
     } else {
-      res.send({success: true, message: "Unable to publish post"});
+      res.send({ success: true, message: "Unable to publish post" });
     }
   });
 };

@@ -106,15 +106,15 @@ class UserPost extends React.Component {
   deleteBtn(postdetails) {
     if (postdetails.poster_id._id === this.state.id) {
       return (
-        <div>
+        <div id="postButtons">
           <input
-            className="btnEditPost"
+            className="btnfunctions btnEditPost"
             type="button"
             value="Edit"
             onClick={() => this.editPostHandler(postdetails._id)}
           />
           <input
-            className="btnDeletePost"
+            className="btnfunctions btnDeletePost"
             type="button"
             value="Delete"
             onClick={() => this.deletePostHandler(postdetails._id)}
@@ -146,7 +146,8 @@ class UserPost extends React.Component {
                   </div>
                   <time className="post-time">{postdetails.timestamp}</time>
                 </div>
-                <div>{this.deleteBtn(postdetails)}</div>
+                <div id="postSpacer"></div>
+                {this.deleteBtn(postdetails)}
               </div>
               <div className="post-content">
                 <div className="post-content-text">

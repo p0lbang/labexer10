@@ -99,7 +99,7 @@ class Feed extends React.Component {
           handleClick={this.logout}
         />
         <aside id="sidebar_left" className="sidebar">
-        <div>Friend Requests</div>
+          <div>Friend Requests</div>
           <ul>
             <FriendRequest
               data={{

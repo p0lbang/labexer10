@@ -65,11 +65,11 @@ class FriendRequestSent extends React.Component {
       <li>
         {this.state.DisplayData.map((data) => {
           return (
-            <div className="sidebar-item">
-              <div>
+            <div className="sidebar-item-group">
+              <div className="sidebar-item-group-user">
                 <span>
                   <img
-                  className="sidebar-item-image"
+                    className="sidebar-item-image"
                     src={this.parseImagefile(data.imageFilename)}
                     alt=""
                   />
@@ -78,11 +78,15 @@ class FriendRequestSent extends React.Component {
                   {data.receiver_id.firstname + " " + data.receiver_id.lastname}
                 </span>
               </div>
-              <div>
+              <div className="sidebar-item-group-buttons">
                 <input
                   type="button"
                   value="Cancel"
-                  onClick={() => this.cancelRequest(data.receiver_id._id)}
+                  onClick={(e) => {
+                    // e.preventDefault();
+                    this.cancelRequest(data.receiver_id._id);
+                    // window.location.reload(false);
+                  }}
                 />
               </div>
             </div>
