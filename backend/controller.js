@@ -98,11 +98,20 @@ const getUserFriends = (req, res, next) => {
     return res.send("No id provided");
   }
 
-  Friend.find({ requester_id: req.body.id }, (err, out) => {
-    if (!err) {
-      res.send(out);
+  // Friend.find({ requester_id: req.body.id }, (err, out) => {
+  //   if (!err) {
+  //     res.send(out);
+  //   }
+  // });
+  Friend.find({ requester_id: req.body.id })
+  .where('status').equals('Accepted')
+  .select('receiver_id').exec(
+    function(err, out){
+      if (!err) {
+        res.send(out);
+      }
     }
-  });
+  );
 };
 
 const getUserFriendRequestsSent = (req, res, next) => {
@@ -145,6 +154,38 @@ const rejectFriendRequest = (req, res, next) => {
       res.send("Successfully rejected friend request");
     } else {
       res.send("Unable to reject friend request");
+    }
+  });
+};
+
+const createFriend = (req, res, next) => {
+  const newFriend = new Friend({
+    requester_id: req.body.requester_id,
+    receiver_id: req.body.receiver_id,
+    status: "Accepted",
+  });
+
+  newFriend.save((err) => {
+    if (!err) {
+      res.send("napublish na yay");
+    } else {
+      res.send("Unable to publish post");
+    }
+  });
+};
+
+const sendFriendRequest = (req, res, next) => {
+  const newFriend = new Friend({
+    requester_id: req.body.requester_id,
+    receiver_id: req.body.receiver_id,
+    status: "Pending",
+  });
+
+  newFriend.save((err) => {
+    if (!err) {
+      res.send({success: true});
+    } else {
+      res.send({success: true});
     }
   });
 };
@@ -268,4 +309,6 @@ export {
   editPostById,
   getFeed,
   checkIfLoggedIn,
+  createFriend,
+  sendFriendRequest
 };

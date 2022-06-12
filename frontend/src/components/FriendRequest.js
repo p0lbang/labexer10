@@ -1,6 +1,6 @@
 import React from "react";
 
-class FriendItem extends React.Component {
+class FriendRequest extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,7 @@ class FriendItem extends React.Component {
 
   componentDidMount() {
     // Send post request to get feed
-    fetch("http://localhost:3001/get/friends", {
+    fetch("http://localhost:3001/get/friendrequest/recieved", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -52,4 +52,4 @@ class FriendItem extends React.Component {
   }
 }
 
-export default FriendItem;
+export default FriendRequest;

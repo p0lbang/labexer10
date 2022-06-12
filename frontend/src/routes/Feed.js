@@ -10,13 +10,6 @@ import PostForm from "../components/PostForm";
 
 const userData = [{ name: "Van Paul" }];
 
-const friendsData = [
-  { name: "Miyah Queliste", imageFilename: "friend-01.jpg" },
-  { name: "Sie Maranan", imageFilename: "friend-02.jpg" },
-  { name: "Vanessa Pia Dayag", imageFilename: "friend-03.jpg" },
-  { name: "Van Peter Dayag", imageFilename: "friend-04.jpg" },
-];
-
 const sponsorsData = [{ text: "Keychron k8", image: "ads.gif" }];
 
 class Feed extends React.Component {
@@ -51,23 +44,23 @@ class Feed extends React.Component {
           this.setState({ checkedIfLoggedIn: true, isLoggedIn: false });
         }
       });
-    //send post request to get feed
-    fetch("http://localhost:3001/get/feed", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        id: this.state.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        this.setState({ postData: body });
-        console.log(body);
-      });
+    // //send post request to get feed
+    // fetch("http://localhost:3001/get/feed", {
+    //   method: "POST",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: this.state.email,
+    //     id: this.state.id,
+    //   }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((body) => {
+    //     this.setState({ postData: body });
+    //     console.log(body);
+    //   });
   }
 
   logout(e) {
@@ -84,6 +77,7 @@ class Feed extends React.Component {
     localStorage.removeItem("email");
 
     this.setState({ isLoggedIn: false });
+    // return <Navigate to="/log-in" />;
   }
 
   render() {
@@ -97,11 +91,14 @@ class Feed extends React.Component {
 
     return (
       <div>
-        <Header data={userData} />
+        <Header data={userData} handleClick={this.logout} />
         <aside id="sidebar_left" className="sidebar">
           <div>Contacts</div>
           <ul>
-            <FriendItem data={friendsData} />
+            <FriendItem data={{
+              id: this.state.id,
+              email: this.state.email,
+            }} />
           </ul>
         </aside>
         <aside id="sidebar_right" className="sidebar">
@@ -111,7 +108,12 @@ class Feed extends React.Component {
 
         <main id="main">
           <PostForm />
-          <UserPost data={this.state.postData} />
+          <UserPost
+            data={{
+              id: this.state.id,
+              email: this.state.email,
+            }}
+          />
         </main>
       </div>
     );

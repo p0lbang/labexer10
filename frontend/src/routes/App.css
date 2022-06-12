@@ -317,6 +317,14 @@ img.post-profile-image {
   display: inline-block;
   filter: invert(62%) sepia(98%) saturate(12%) hue-rotate(175deg) brightness(90%) contrast(96%);
 }
+.icon2 {
+  background-size: auto;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(89%) sepia(6%) hue-rotate(185deg);
+}
 
 .icon-like {
   background-image: url("../images/icon-tileset.png");
@@ -332,6 +340,12 @@ img.post-profile-image {
   background-image: url("../images/icon-tileset.png");
   background-position: 0px -292px;
 }
+
+.icon-logout {
+  background-image: url("../images/icon-tileset-2.png");
+  background-position: 0px -46px;
+}
+
 
 .icon-s {
   background-image: url("../images/icon-tileset.png");
@@ -443,4 +457,8 @@ input#submitPost {
   font-weight: bold;
   font-size: 1em;
   color: var(--main-text-color);
+}
+
+a:hover{
+  cursor: pointer;
 }

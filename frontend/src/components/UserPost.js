@@ -5,13 +5,36 @@ class UserPost extends React.Component {
     super(props);
 
     this.state = {
-      id: localStorage.getItem("id"),
+      id: this.props.data.id,
+      email: this.props.data.email,
+      DisplayData: [],
     };
 
     this.deletePostHandler = this.deletePostHandler.bind(this);
   }
 
+  componentDidMount() {
+    // Send post request to get feed
+    fetch("http://localhost:3001/get/feed", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        id: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        this.setState({ DisplayData: body });
+        console.log(body);
+      });
+  }
+
   deletePostHandler(e) {
+    // Send post request to delete a post 
     fetch("http://localhost:3001/delete/post", {
       method: "POST",
       headers: {
@@ -31,10 +54,9 @@ class UserPost extends React.Component {
   }
 
   render() {
-    const postData = this.props.data;
     return (
       <div>
-        {postData.map((postdetails) => {
+        {this.state.DisplayData.map((postdetails) => {
           return (
             <article className="post">
               <div className="post-userinfo">
