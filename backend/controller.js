@@ -93,26 +93,48 @@ const findUserName = (req, res, next) => {
   });
 };
 
-const getUserFriends = (req, res, next) => {
+const getUserFriends = async (req, res, next) => {
   if (!req.body.id) {
     return res.send("No id provided");
   }
+  let allFriends = [];
+  try {
+    var reque = await Friend.find({ requester_id: req.body.id })
+      .where("status")
+      .equals("Accepted")
+      .populate("receiver_id")
+      .select("receiver_id");
+    // .exec(function (err, out) {
+    //   if (!err) {
+    //     console.log("requester");
+    //     console.log(out);
+    //     allFriends = allFriends.concat(out);
+    //     return out;
+    //   }
+    // });
 
-  // Friend.find({ requester_id: req.body.id }, (err, out) => {
-  //   if (!err) {
-  //     res.send(out);
-  //   }
-  // });
-  Friend.find({ requester_id: req.body.id })
-    .where("status")
-    .equals("Accepted")
-    .populate("receiver_id")
-    .select("receiver_id")
-    .exec(function (err, out) {
-      if (!err) {
-        res.send(out);
-      }
-    });
+    var rec = await Friend.find({ receiver_id: req.body.id })
+      .where("status")
+      .equals("Accepted")
+      .populate("requester_id")
+      .select("requester_id");
+    // .exec(function (err, out) {
+    //   if (!err) {
+    //     console.log("receiver");
+    //     console.log(out);
+    //     allFriends = allFriends.concat(out);
+    //     console.log("hatdog")
+    //     console.log(allFriends)
+    //     return out;
+    //   }
+    // });
+    allFriends = allFriends.concat(reque, rec);
+    console.log("hatdoglods");
+    console.log(allFriends);
+    res.send(allFriends);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getUserFriendRequestsSent = (req, res, next) => {
@@ -228,12 +250,18 @@ const createPost = (req, res, next) => {
 };
 // PAGES-3.B.1
 const deletePostById = (req, res, next) => {
-  Post.findOneAndDelete({ _id: req.body.id }, (err, game) => {
-    if (!err && game) {
-      console.log("deleted " + game._id);
-      res.send("Successfully deleted post");
+  Post.findOneAndDelete({ _id: req.body.id }, (err, output) => {
+    if (!err && output) {
+      console.log("deleted " + output._id);
+      res.send({
+        success: true,
+        message: "Successfully deleted post",
+      });
     } else {
-      res.send("Unable to delete post");
+      res.send({
+        success: false,
+        message: "Unable to delete post",
+      });
     }
   });
 };

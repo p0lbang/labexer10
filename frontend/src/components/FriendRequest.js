@@ -13,8 +13,7 @@ class FriendRequest extends React.Component {
     this.acceptRequest = this.acceptRequest.bind(this);
     this.rejectRequest = this.rejectRequest.bind(this);
   }
-  acceptRequest(e){
-    
+  acceptRequest(e) {
     fetch("http://localhost:3001/accept/friendrequest/recieved", {
       method: "POST",
       headers: {
@@ -34,7 +33,7 @@ class FriendRequest extends React.Component {
       });
   }
 
-  rejectRequest(e){
+  rejectRequest(e) {
     fetch("http://localhost:3001/reject/friendrequest/recieved", {
       method: "POST",
       headers: {
@@ -81,17 +80,29 @@ class FriendRequest extends React.Component {
           return (
             <div className="sidebar-item">
               <div>
-              <span>
-                <img
-                  src={'require("../images/" + data.imageFilename)'}
-                  alt=""
-                />
-              </span>
-              <span>{data.requester_id.firstname + " " +data.requester_id.lastname}</span>
+                <span>
+                  <img
+                    src={'require("../images/" + data.imageFilename)'}
+                    alt=""
+                  />
+                </span>
+                <span>
+                  {data.requester_id.firstname +
+                    " " +
+                    data.requester_id.lastname}
+                </span>
               </div>
               <div>
-                <input type="button" value="Accept" onClick={() => this.acceptRequest(data.requester_id._id)}/>
-                <input type="button" value="Reject" onClick={() => this.rejectRequest(data.requester_id._id)}/>
+                <input
+                  type="button"
+                  value="Accept"
+                  onClick={() => this.acceptRequest(data.requester_id._id)}
+                />
+                <input
+                  type="button"
+                  value="Reject"
+                  onClick={() => this.rejectRequest(data.requester_id._id)}
+                />
               </div>
             </div>
           );

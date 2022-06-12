@@ -14,7 +14,7 @@ import {
   checkIfLoggedIn,
   createFriend,
   sendFriendRequest,
-  acceptFriendRequest
+  acceptFriendRequest,
 } from "./controller.js";
 
 const router = (app) => {
@@ -47,8 +47,8 @@ const router = (app) => {
   app.post("/reject/friendrequest/recieved", rejectFriendRequest);
   app.post("/accept/friendrequest/recieved", acceptFriendRequest);
   app.post("/checkifloggedin", checkIfLoggedIn); // works
-  app.post("/create/friend", createFriend); 
-  app.post("/create/friendrequest", sendFriendRequest); 
+  app.post("/create/friend", createFriend);
+  app.post("/create/friendrequest", sendFriendRequest);
 };
 
 export default router;

@@ -92,23 +92,30 @@ class Feed extends React.Component {
 
     return (
       <div>
-        <Header data={{
-          name: this.state.firstname + " " + this.state.lastname
-        }} handleClick={this.logout} />
+        <Header
+          data={{
+            name: this.state.firstname + " " + this.state.lastname,
+          }}
+          handleClick={this.logout}
+        />
         <aside id="sidebar_left" className="sidebar">
-        <div>Friend Requests</div>
+          <div>Friend Requests</div>
           <ul>
-            <FriendRequest data={{
-              id: this.state.id,
-              email: this.state.email,
-            }} />
+            <FriendRequest
+              data={{
+                id: this.state.id,
+                email: this.state.email,
+              }}
+            />
           </ul>
           <div>Contacts</div>
           <ul>
-            <FriendItem data={{
-              id: this.state.id,
-              email: this.state.email,
-            }} />
+            <FriendItem
+              data={{
+                id: this.state.id,
+                email: this.state.email,
+              }}
+            />
           </ul>
         </aside>
         <aside id="sidebar_right" className="sidebar">

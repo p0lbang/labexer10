@@ -34,7 +34,7 @@ class UserPost extends React.Component {
   }
 
   deletePostHandler(e) {
-    // Send post request to delete a post 
+    // Send post request to delete a post
     fetch("http://localhost:3001/delete/post", {
       method: "POST",
       headers: {
@@ -53,6 +53,14 @@ class UserPost extends React.Component {
       });
   }
 
+  parseImagefile(imageFilename) {
+    try {
+      return require("../images/" + imageFilename);
+    } catch (err) {
+      return require("../images/default-profile.jpg");
+    }
+  }
+
   render() {
     return (
       <div>
@@ -63,12 +71,16 @@ class UserPost extends React.Component {
                 <div>
                   <img
                     className="post-profile-image"
-                    src={require("../images/user-01.jpg")}
+                    src={this.parseImagefile(postdetails.imageFilename)}
                     alt=""
                   />
                 </div>
                 <div className="post-details">
-                  <div className="post-name">{postdetails.poster_id.firstname + " " + postdetails.poster_id.lastname}</div>
+                  <div className="post-name">
+                    {postdetails.poster_id.firstname +
+                      " " +
+                      postdetails.poster_id.lastname}
+                  </div>
                   <time className="post-time">{postdetails.timestamp}</time>
                 </div>
                 <div>

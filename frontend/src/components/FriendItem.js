@@ -31,6 +31,22 @@ class FriendItem extends React.Component {
       });
   }
 
+  parseDisplayData(data) {
+    try {
+      return data.requester_id.firstname + " " + data.requester_id.lastname;
+    } catch (err) {
+      return data.receiver_id.firstname + " " + data.receiver_id.lastname;
+    }
+  }
+
+  parseImagefile(imageFilename) {
+    try {
+      return require("../images/" + imageFilename);
+    } catch (err) {
+      return require("../images/default-profile.jpg");
+    }
+  }
+
   render() {
     return (
       <li>
@@ -38,12 +54,9 @@ class FriendItem extends React.Component {
           return (
             <div className="sidebar-item">
               <span>
-                <img
-                  src={'require("../images/" + data.imageFilename)'}
-                  alt=""
-                />
+                <img src={this.parseImagefile(data.imageFilename)} alt="" />
               </span>
-              <span>{data.receiver_id.firstname + " " + data.receiver_id.lastname}</span>
+              <span>{this.parseDisplayData(data)}</span>
             </div>
           );
         })}
