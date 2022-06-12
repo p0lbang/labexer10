@@ -12,7 +12,6 @@ import {
   editPostById,
   getFeed,
   checkIfLoggedIn,
-  createFriend,
   sendFriendRequest,
   acceptFriendRequest,
 } from "./controller.js";
@@ -34,21 +33,21 @@ const router = (app) => {
   });
 
   app.post("/create/post", createPost); // works
-  app.post("/edit/post", editPostById);
   app.post("/delete/post", deletePostById); // works
-  app.post("/get/feed", getFeed); // works personal feed so far
+  app.post("/get/feed", getFeed); // works
   app.post("/create/user", createUser); // works
   app.post("/login", loginUser); // works
-  app.post("/find/user", findUserName);
-  app.post("/get/friends", getUserFriends);
-  app.post("/get/friendrequest/sent", getUserFriendRequestsSent);
-  app.post("/get/friendrequest/recieved", getUserFriendRequestsRecieved);
-  app.post("/cancel/friendrequest/sent", cancelFriendRequest);
-  app.post("/reject/friendrequest/recieved", rejectFriendRequest);
-  app.post("/accept/friendrequest/recieved", acceptFriendRequest);
+  app.post("/get/friends", getUserFriends); // works
+  app.post("/reject/friendrequest/recieved", rejectFriendRequest); // works
+  app.post("/accept/friendrequest/recieved", acceptFriendRequest); // works
   app.post("/checkifloggedin", checkIfLoggedIn); // works
-  app.post("/create/friend", createFriend);
+  app.post("/get/friendrequest/recieved", getUserFriendRequestsRecieved); // works
+  
+  app.post("/edit/post", editPostById);
+  app.post("/find/user", findUserName);
   app.post("/create/friendrequest", sendFriendRequest);
+  app.post("/cancel/friendrequest/sent", cancelFriendRequest);
+  app.post("/get/friendrequest/sent", getUserFriendRequestsSent);
 };
 
 export default router;

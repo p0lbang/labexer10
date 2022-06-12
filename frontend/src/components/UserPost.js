@@ -8,29 +8,15 @@ class UserPost extends React.Component {
       id: this.props.data.id,
       email: this.props.data.email,
       DisplayData: [],
+      friendData: this.props.data.friendData,
     };
 
     this.deletePostHandler = this.deletePostHandler.bind(this);
+    this.editPostHandler = this.editPostHandler.bind(this);
   }
 
   componentDidMount() {
-    // Send post request to get feed
-    fetch("http://localhost:3001/get/feed", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        id: this.state.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        this.setState({ DisplayData: body });
-        console.log(body);
-      });
+    this.parseUserId();
   }
 
   deletePostHandler(e) {
@@ -49,7 +35,32 @@ class UserPost extends React.Component {
         if (!body.success) {
           alert("Failed to publish post!");
         }
-        console.log(body);
+        // console.log(body);
+      });
+  }
+
+  editPostHandler(e) {
+    var newContent = prompt("Edit Post")
+    if(newContent === ""){
+      return;
+    }
+    // Send post request to delete a post
+    fetch("http://localhost:3001/edit/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: e,
+        content: newContent
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        if (!body.success) {
+          alert("Failed to publish post!");
+        }
+        // console.log(body);
       });
   }
 
@@ -58,6 +69,59 @@ class UserPost extends React.Component {
       return require("../images/" + imageFilename);
     } catch (err) {
       return require("../images/default-profile.jpg");
+    }
+  }
+
+  parseUserId() {
+    let allid = [];
+
+    this.state.friendData.map((d) => {
+      try {
+        allid.push(d.receiver_id._id);
+        console.log(d.receiver_id._id);
+      } catch (err) {
+        allid.push(d.requester_id._id);
+      }
+    });
+    allid.push(this.state.id);
+
+    fetch("http://localhost:3001/get/feed", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        id: this.state.id,
+        ids: allid,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        this.setState({ DisplayData: body });
+        // console.log(body);
+      });
+  }
+
+  deleteBtn(postdetails) {
+    if (postdetails.poster_id._id === this.state.id) {
+      return (
+        <div>
+          <input
+          className="btnEditPost"
+          type="button"
+          value="Edit"
+          onClick={() => this.editPostHandler(postdetails._id)}
+        />
+        <input
+        className="btnDeletePost"
+        type="button"
+        value="Delete"
+        onClick={() => this.deletePostHandler(postdetails._id)}
+      />
+        </div>
+      );
     }
   }
 
@@ -83,14 +147,7 @@ class UserPost extends React.Component {
                   </div>
                   <time className="post-time">{postdetails.timestamp}</time>
                 </div>
-                <div>
-                  <input
-                    className="btnDeletePost"
-                    type="button"
-                    value="delete me"
-                    onClick={() => this.deletePostHandler(postdetails._id)}
-                  />
-                </div>
+                <div>{this.deleteBtn(postdetails)}</div>
               </div>
               <div className="post-content">
                 <div className="post-content-text">

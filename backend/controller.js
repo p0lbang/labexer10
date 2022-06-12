@@ -199,22 +199,6 @@ const acceptFriendRequest = (req, res, next) => {
   });
 };
 
-const createFriend = (req, res, next) => {
-  const newFriend = new Friend({
-    requester_id: req.body.requester_id,
-    receiver_id: req.body.receiver_id,
-    status: "Accepted",
-  });
-
-  newFriend.save((err) => {
-    if (!err) {
-      res.send("napublish na yay");
-    } else {
-      res.send("Unable to publish post");
-    }
-  });
-};
-
 const sendFriendRequest = (req, res, next) => {
   const newFriend = new Friend({
     requester_id: req.body.requester_id,
@@ -267,8 +251,9 @@ const deletePostById = (req, res, next) => {
 };
 // PAGES-3.B.2
 const editPostById = (req, res, next) => {
-  Post.findOneAndUpdate(
-    { _id: req.body.id, content: req.body.content },
+  Post.updateOne(
+    { _id: req.body.id },
+    {content: req.body.content},
     (err, game) => {
       if (!err && game) {
         res.send("Successfully edited post");
@@ -282,37 +267,18 @@ const editPostById = (req, res, next) => {
 // PAGES-3.C.D.
 const getFeed = (req, res, next) => {
   // check array of ids with all of friends and own id.
-  if (!req.body.email) {
-    return res.send("No email provided");
+  if (!req.body.ids) {
+    return res.send("No ids provided");
   }
 
-  Post.find({ poster_id: req.body.id })
+  Post.find({ poster_id: { $in: req.body.ids } })
     .populate("poster_id")
     .sort({ timestamp: "desc" })
     .exec(function (err, feed) {
       if (!err) {
-        console.log(feed);
         res.send(feed);
       }
     });
-  // User.find({ email: req.body.email }, (err, out) => {
-  //   if (!err) {
-  //     Post.find({ poster_id: out._id }, (err, feed) => {
-  //       if (!err) {
-  //         console.log(feed);
-  //         res.send(feed);
-  //       }
-  //     });
-  //   }
-  // });
-
-  // Post.find({});
-
-  // Friend.find({ receiver_id: req.body.id }, (err, out) => {
-  //   if (!err) {
-  //     res.send(out);
-  //   }
-  // });
 };
 
 const checkIfLoggedIn = (req, res) => {
@@ -358,7 +324,6 @@ export {
   editPostById,
   getFeed,
   checkIfLoggedIn,
-  createFriend,
   sendFriendRequest,
   acceptFriendRequest,
 };

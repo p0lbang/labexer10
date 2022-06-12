@@ -6,6 +6,7 @@ class PostForm extends React.Component {
 
     this.state = {
       imageFilename: "",
+      id: localStorage.getItem("id")
     };
 
     this.inputHandler = this.inputHandler.bind(this);
@@ -44,7 +45,7 @@ class PostForm extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: "62a4bf23f903bd7828059abf",
+        id: this.state.id,
         content: txtarea,
       }),
     })
