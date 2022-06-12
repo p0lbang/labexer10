@@ -212,6 +212,12 @@ input#searchInput {
   border-radius: 100%;
 }
 
+.sidebar-item-image{
+  height: 36px;
+  width: 36px;
+  border-radius: 100%;
+}
+
 .sidebar-item:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.1);

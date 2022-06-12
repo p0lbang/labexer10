@@ -130,7 +130,7 @@ class SignUp extends React.Component {
   render() {
     return (
       <div>
-        <form id="#login-from" action="" onSubmit={this.formSubmit}>
+        <form id="login-from" action="" onSubmit={this.formSubmit}>
           <label className="label">Firstname:</label>
           <input
             type="text"

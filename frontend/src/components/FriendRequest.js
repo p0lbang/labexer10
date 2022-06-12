@@ -70,6 +70,14 @@ class FriendRequest extends React.Component {
       });
   }
 
+  parseImagefile(imageFilename) {
+    try {
+      return require("../images/" + imageFilename);
+    } catch (err) {
+      return require("../images/default-profile.jpg");
+    }
+  }
+
   render() {
     return (
       <li>
@@ -79,7 +87,7 @@ class FriendRequest extends React.Component {
               <div>
                 <span>
                   <img
-                    src={'require("../images/" + data.imageFilename)'}
+                    src={this.parseImagefile(data.imageFilename)}
                     alt=""
                   />
                 </span>
