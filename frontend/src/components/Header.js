@@ -99,7 +99,7 @@ class Header extends React.Component {
           <div id="header-left" className="header-group">
             <div className="search-group sidebar-item">
               <span>
-                <img src={require("../images/icons/fb.png")} alt="" />
+                <img src={require("../images/icons/bookface.jpg")} alt="" />
               </span>
               <span>
                 <div>

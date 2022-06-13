@@ -109,7 +109,12 @@ class Login extends React.Component {
     return (
       <div>
         <form id="login-from" action="" onSubmit={this.formSubmit}>
-          <h1>LOGIN</h1>
+          <img
+            className="website-logo"
+            src={require("../images/icons/bookface.jpg")}
+            alt=""
+          />
+          <h1>Book Face Login</h1>
           <label className="label">Email:</label>
           <input
             type="email"

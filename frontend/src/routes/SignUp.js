@@ -130,7 +130,12 @@ class SignUp extends React.Component {
     return (
       <div>
         <form id="login-from" action="" onSubmit={this.formSubmit}>
-          <h1>SIGN UP</h1>
+          <img
+            className="website-logo"
+            src={require("../images/icons/bookface.jpg")}
+            alt=""
+          />
+          <h1>Sign Up</h1>
           <label className="label">Firstname:</label>
           <input
             type="text"

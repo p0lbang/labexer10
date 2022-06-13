@@ -6,7 +6,12 @@ class Home extends React.Component {
     return (
       <div>
         <form id="login-from" action="">
-          <h1>Home Page</h1>
+          <img
+            className="website-logo"
+            src={require("../images/icons/bookface.jpg")}
+            alt=""
+          />
+          <h1>Book Face</h1>
           <a href="/log-in">
             <input className="homepage-button" type="button" value="Login" />
           </a>
