@@ -43,25 +43,25 @@ class Feed extends React.Component {
             checkedIfLoggedIn: true,
             isLoggedIn: true,
           });
+
+          fetch("http://localhost:3001/get/friends", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: this.state.email,
+              id: this.state.id,
+            }),
+          })
+            .then((response) => response.json())
+            .then((body) => {
+              this.setState({ friendData: body });
+            });
         } else {
           this.setState({ checkedIfLoggedIn: true, isLoggedIn: false });
         }
-      });
-
-    fetch("http://localhost:3001/get/friends", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        id: this.state.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        this.setState({ friendData: body });
       });
   }
 
@@ -138,7 +138,6 @@ class Feed extends React.Component {
             data={{
               id: this.state.id,
               email: this.state.email,
-              friendData: this.state.friendData,
             }}
           />
         </main>

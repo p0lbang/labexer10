@@ -38,7 +38,7 @@ const createUser = (req, res, next) => {
   });
 
   newUser.save((err) => {
-    console.log(err)
+    console.log(err);
     if (!err) {
       res.send({ success: true });
     } else {
@@ -115,20 +115,28 @@ const getUserFriends = async (req, res, next) => {
   }
   let allFriends = [];
   try {
-    var reque = await Friend.find({ requester_id: req.body.id })
+    Friend.find({ requester_id: req.body.id })
       .where("status")
       .equals("Accepted")
       .populate("receiver_id")
-      .select("receiver_id");
-
-    var rec = await Friend.find({ receiver_id: req.body.id })
-      .where("status")
-      .equals("Accepted")
-      .populate("requester_id")
-      .select("requester_id");
-
-    allFriends = allFriends.concat(reque, rec);
-    res.send(allFriends);
+      .select("receiver_id")
+      .exec(function (err1, out1) {
+        if (!err1) {
+          Friend.find({ receiver_id: req.body.id })
+            .where("status")
+            .equals("Accepted")
+            .populate("requester_id")
+            .select("requester_id")
+            .exec(function (err2, out2) {
+              if (!err2) {
+                allFriends = allFriends.concat(out1, out2);
+                // console.log("all of my friends");
+                // console.log(allFriends);
+                res.send(allFriends);
+              }
+            });
+        }
+      });
   } catch (err) {
     next(err);
   }
@@ -304,18 +312,48 @@ const editPostById = (req, res, next) => {
 // PAGES-3.C.D.
 const getFeed = (req, res, next) => {
   // check array of ids with all of friends and own id.
-  if (!req.body.ids) {
-    return res.send("No ids provided");
+  if (!req.body.id) {
+    return res.send("No id provided");
   }
 
-  Post.find({ poster_id: { $in: req.body.ids } })
-    .populate("poster_id")
-    .sort({ timestamp: "desc" })
-    .exec(function (err, feed) {
-      if (!err) {
-        res.send(feed);
-      }
-    });
+  let users = [];
+
+  User.findOne({ _id: req.body.id }).exec(function (err, user) {
+    if (!err) {
+      users.push(req.body.id);
+      Friend.find({ requester_id: req.body.id })
+        .where("status")
+        .equals("Accepted")
+        .select("receiver_id")
+        .exec(function (err1, out1) {
+          if (!err1) {
+            Friend.find({ receiver_id: req.body.id })
+              .where("status")
+              .equals("Accepted")
+              .select("requester_id")
+              .exec(function (err2, out2) {
+                if (!err2) {
+                  for (let index = 0; index < out1.length; index++) {
+                    users.push(String(out1[index]["receiver_id"]));
+                  }
+                  for (let index = 0; index < out2.length; index++) {
+                    users.push(String(out2[index]["requester_id"]));
+                  }
+
+                  Post.find({ poster_id: { $in: users } })
+                    .populate("poster_id")
+                    .sort({ timestamp: "desc" })
+                    .exec(function (err, feed) {
+                      if (!err) {
+                        res.send(feed);
+                      }
+                    });
+                }
+              });
+          }
+        });
+    }
+  });
 };
 
 const checkIfLoggedIn = (req, res) => {

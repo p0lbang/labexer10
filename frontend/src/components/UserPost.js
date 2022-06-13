@@ -8,7 +8,6 @@ class UserPost extends React.Component {
       id: this.props.data.id,
       email: this.props.data.email,
       DisplayData: [],
-      friendData: this.props.data.friendData,
     };
 
     this.deletePostHandler = this.deletePostHandler.bind(this);
@@ -16,7 +15,22 @@ class UserPost extends React.Component {
   }
 
   componentDidMount() {
-    this.parseUserId();
+    fetch("http://localhost:3001/get/feed", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: this.state.id,
+        email: this.state.email,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        this.setState({ DisplayData: body });
+        // console.log(body)
+      });
   }
 
   deletePostHandler(e) {
@@ -70,37 +84,6 @@ class UserPost extends React.Component {
     } catch (err) {
       return require("../images/default-profile.jpg");
     }
-  }
-
-  parseUserId() {
-    let allid = [];
-    for (let index = 0; index < this.state.friendData.length; index++) {
-      try {
-        allid.push(this.state.friendData[index].receiver_id._id);
-      } catch (err) {
-        allid.push(this.state.friendData[index].requester_id._id);
-      }
-    }
-
-    allid.push(this.state.id);
-
-    fetch("http://localhost:3001/get/feed", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        id: this.state.id,
-        ids: allid,
-      }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        this.setState({ DisplayData: body });
-        // console.log(body);
-      });
   }
 
   deleteBtn(postdetails) {
