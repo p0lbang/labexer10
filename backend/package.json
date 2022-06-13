@@ -1,5 +1,5 @@
 {
-  "name": "games-server",
+  "name": "labexer10-backend",
   "type": "module",
   "dependencies": {
     "bcrypt": "^5.0.1",

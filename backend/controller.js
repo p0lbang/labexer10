@@ -19,11 +19,11 @@ const FriendSchema = new mongoose.Schema({
   receiver_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   status: { type: String, required: true },
 });
-FriendSchema.index(
-  { requester_id: 1, receiver_id: 1 },
-  { unique: true, sparse: true }
-);
-FriendSchema.set("autoIndex", true);
+// FriendSchema.index(
+//   { requester_id: 1, receiver_id: 1 },
+//   { unique: true}
+// );
+// FriendSchema.set("autoIndex", true);
 
 const Friend = mongoose.model("friend", FriendSchema);
 
@@ -38,10 +38,11 @@ const createUser = (req, res, next) => {
   });
 
   newUser.save((err) => {
+    console.log(err)
     if (!err) {
-      return res.send({ success: true });
+      res.send({ success: true });
     } else {
-      return res.send({ success: false });
+      res.send({ success: false });
     }
   });
 };
@@ -229,7 +230,7 @@ const sendFriendRequest = (req, res, next) => {
           } else {
             res.send({
               success: false,
-              message: "1 Failed to send friend request",
+              message: "Failed to send friend request",
             });
           }
         });

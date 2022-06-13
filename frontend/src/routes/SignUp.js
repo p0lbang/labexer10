@@ -75,7 +75,7 @@ class SignUp extends React.Component {
       .then((body) => {
         if (body.success) {
           alert("Successfully saved user!");
-          return <Navigate to="/log-in" />;
+          window.location.reload(false);
         } else {
           alert("Failed to save user.");
         }

@@ -32,8 +32,7 @@ class Header extends React.Component {
         if (!body.success) {
           alert(body.message);
         } else {
-          console.log(body);
-          window.location.reload(false);
+          alert(body.message)
         }
       });
   }
