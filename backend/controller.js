@@ -311,7 +311,6 @@ const editPostById = (req, res, next) => {
 
 // PAGES-3.C.D.
 const getFeed = (req, res, next) => {
-  // check array of ids with all of friends and own id.
   if (!req.body.id) {
     return res.send("No id provided");
   }

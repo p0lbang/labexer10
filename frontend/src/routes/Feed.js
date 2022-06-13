@@ -23,8 +23,6 @@ class Feed extends React.Component {
       id: localStorage.getItem("id"),
       firstname: localStorage.getItem("firstname"),
       lastname: localStorage.getItem("lastname"),
-      postData: [],
-      friendData: [],
     };
 
     this.logout = this.logout.bind(this);
@@ -43,22 +41,6 @@ class Feed extends React.Component {
             checkedIfLoggedIn: true,
             isLoggedIn: true,
           });
-
-          fetch("http://localhost:3001/get/friends", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: this.state.email,
-              id: this.state.id,
-            }),
-          })
-            .then((response) => response.json())
-            .then((body) => {
-              this.setState({ friendData: body });
-            });
         } else {
           this.setState({ checkedIfLoggedIn: true, isLoggedIn: false });
         }
