@@ -131,6 +131,7 @@ class SignUp extends React.Component {
     return (
       <div>
         <form id="login-from" action="" onSubmit={this.formSubmit}>
+        <h1>SIGN UP</h1>
           <label className="label">Firstname:</label>
           <input
             type="text"

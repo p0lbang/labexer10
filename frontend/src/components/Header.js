@@ -31,9 +31,10 @@ class Header extends React.Component {
       .then((body) => {
         if (!body.success) {
           alert("Failed to publish post!");
+        }else{
+          console.log(body);
+          window.location.reload(false);
         }
-        console.log(body);
-        window.location.reload(false);
       });
   }
 

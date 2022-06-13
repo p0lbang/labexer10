@@ -15,11 +15,12 @@ status: [Accepted, Pending] // if rejected of canceled request just delete the i
 */
 
 const FriendSchema = new mongoose.Schema({
-  requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
+  requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true},
   receiver_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   status: { type: String, required: true },
 });
-FriendSchema.index({ requester_id: 1, receiver_id: 1 }, { unique: true });
+FriendSchema.index({ requester_id: 1, receiver_id: 1 }, { unique: true, sparse: true });
+FriendSchema.set('autoIndex', true);
 
 const Friend = mongoose.model("friend", FriendSchema);
 

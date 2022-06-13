@@ -47,6 +47,8 @@ class FriendRequest extends React.Component {
       .then((body) => {
         if (!body.success) {
           alert("Failed to reject fr!");
+        }else{
+          // window.location.reload(false);
         }
       });
   }
@@ -103,18 +105,17 @@ class FriendRequest extends React.Component {
                   type="button"
                   value="Accept"
                   onClick={(e) => {
-                    e.preventDefault();
+                    // e.preventDefault();
                     this.acceptRequest(data.requester_id._id);
-                    window.location.reload(false);
+                    // window.location.reload(false);
                   }}
                 />
                 <input
                   type="button"
                   value="Reject"
                   onClick={(e) => {
-                    e.preventDefault();
                     this.rejectRequest(data.requester_id._id);
-                    window.location.reload(false);
+                    // window.location.reload(false);
                   }}
                 />
               </div>

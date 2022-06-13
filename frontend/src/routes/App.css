@@ -313,6 +313,7 @@ img.post-profile-image {
 
 .post-details {
   padding: 2px 0 0 10px;
+  width: 100%;
 }
 
 .post-name {
