@@ -56,8 +56,7 @@ class Login extends React.Component {
 
     e.preventDefault();
     // POST request to the server
-    // fetch("http://localhost:3001/login", {
-    fetch("/login", {
+    fetch("http://localhost:3001/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -132,6 +131,7 @@ class Login extends React.Component {
           />
           <br />
           <input id="btnSignUp" type="submit" value="Sign Up" />
+          <a className="login" href="/sign-up">Sign up now</a>
         </form>
       </div>
     );

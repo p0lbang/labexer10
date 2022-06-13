@@ -186,6 +186,7 @@ class SignUp extends React.Component {
           <span id="errorMSGrepeatpass" className="errorMessage"></span>
           <br />
           <input id="btnSignUp" type="submit" value="Sign Up" />
+          <a className="login" href="/log-in">Log in now</a>
         </form>
       </div>
     );
