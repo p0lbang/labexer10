@@ -30,8 +30,8 @@ class Header extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          alert("Failed to publish post!");
-        }else{
+          console.log("Failed to send friend request!");
+        } else {
           console.log(body);
           window.location.reload(false);
         }

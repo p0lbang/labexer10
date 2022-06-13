@@ -521,6 +521,10 @@ input.btnfunctions{
   margin-left: 5px;
 }
 
+input[type=button].btnfunctions:hover{
+  cursor: pointer;
+}
+
 div#postSpacer{
   margin: auto;
   width: 100%;

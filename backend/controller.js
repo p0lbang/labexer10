@@ -15,12 +15,15 @@ status: [Accepted, Pending] // if rejected of canceled request just delete the i
 */
 
 const FriendSchema = new mongoose.Schema({
-  requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true},
+  requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   receiver_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   status: { type: String, required: true },
 });
-FriendSchema.index({ requester_id: 1, receiver_id: 1 }, { unique: true, sparse: true });
-FriendSchema.set('autoIndex', true);
+FriendSchema.index(
+  { requester_id: 1, receiver_id: 1 },
+  { unique: true, sparse: true }
+);
+FriendSchema.set("autoIndex", true);
 
 const Friend = mongoose.model("friend", FriendSchema);
 
@@ -168,7 +171,10 @@ const rejectFriendRequest = (req, res, next) => {
           message: "Successfully rejected friend request",
         });
       } else {
-        res.send({ success: false, message: "Unable to reject friend request" });
+        res.send({
+          success: false,
+          message: "Unable to reject friend request",
+        });
       }
     }
   );
@@ -185,23 +191,37 @@ const acceptFriendRequest = (req, res, next) => {
         message: "Successfully accepted friend request",
       });
     } else {
-      res.send({ success: false, message: "Unable to accepted friend request" });
+      res.send({
+        success: false,
+        message: "Unable to accepted friend request",
+      });
     }
   });
 };
 
 const sendFriendRequest = (req, res, next) => {
-  const newFriend = new Friend({
-    requester_id: req.body.requester_id,
-    receiver_id: req.body.receiver_id,
-    status: "Pending",
-  });
+  Friend.find({
+    requester_id: req.body.receiver_id,
+    receiver_id: req.body.requester_id,
+  }).exec(function (err1, out) {
+    if (!err1) {
+      if (out.length === 0) {
+        const newFriend = new Friend({
+          requester_id: req.body.requester_id,
+          receiver_id: req.body.receiver_id,
+          status: "Pending",
+        });
 
-  newFriend.save((err) => {
-    if (!err) {
-      res.send({ success: true });
-    } else {
-      res.send({ success: true });
+        newFriend.save((err) => {
+          if (!err) {
+            res.send({ success: true });
+          } else {
+            res.send({ success: false });
+          }
+        });
+      }
+    }else{
+      res.send({ success: false });
     }
   });
 };
@@ -226,8 +246,8 @@ const createPost = (req, res, next) => {
 // PAGES-3.B.1
 const deletePostById = (req, res, next) => {
   Post.findOneAndDelete({ _id: req.body.id }, (err, output) => {
+    console.log("deleted " + output._id);
     if (!err && output) {
-      console.log("deleted " + output._id);
       res.send({
         success: true,
         message: "Successfully deleted post",
@@ -247,9 +267,15 @@ const editPostById = (req, res, next) => {
     { content: req.body.content },
     (err, game) => {
       if (!err && game) {
-        res.send("Successfully edited post");
+        res.send({
+          success: true,
+          message: "Successfully edited post",
+        });
       } else {
-        res.send("Unable to edit post");
+        res.send({
+          success: false,
+          message: "Unable to edit post",
+        });
       }
     }
   );
