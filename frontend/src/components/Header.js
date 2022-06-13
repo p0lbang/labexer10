@@ -30,7 +30,7 @@ class Header extends React.Component {
       .then((response) => response.json())
       .then((body) => {
         if (!body.success) {
-          console.log("Failed to send friend request!");
+          alert(body.message);
         } else {
           console.log(body);
           window.location.reload(false);

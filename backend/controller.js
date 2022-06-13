@@ -201,8 +201,16 @@ const acceptFriendRequest = (req, res, next) => {
 
 const sendFriendRequest = (req, res, next) => {
   Friend.find({
-    requester_id: req.body.receiver_id,
-    receiver_id: req.body.requester_id,
+    $or: [
+      {
+        requester_id: req.body.receiver_id,
+        receiver_id: req.body.requester_id,
+      },
+      {
+        requester_id: req.body.requester_id,
+        receiver_id: req.body.receiver_id,
+      },
+    ],
   }).exec(function (err1, out) {
     if (!err1) {
       if (out.length === 0) {
@@ -214,14 +222,25 @@ const sendFriendRequest = (req, res, next) => {
 
         newFriend.save((err) => {
           if (!err) {
-            res.send({ success: true });
+            res.send({
+              success: true,
+              message: "Succesfully sent friend request",
+            });
           } else {
-            res.send({ success: false });
+            res.send({
+              success: false,
+              message: "1 Failed to send friend request",
+            });
           }
         });
+      } else {
+        res.send({
+          success: false,
+          message: "You cant send a friend request currently",
+        });
       }
-    }else{
-      res.send({ success: false });
+    } else {
+      res.send({ success: false, message: "2 Failed to send friend request" });
     }
   });
 };
