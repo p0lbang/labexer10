@@ -135,7 +135,7 @@ class SignUp extends React.Component {
             src={require("../images/icons/bookface.jpg")}
             alt=""
           />
-          <h1>Sign Up</h1>
+          <h1>Book Face Sign Up</h1>
           <label className="label">Firstname:</label>
           <input
             type="text"
