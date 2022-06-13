@@ -164,11 +164,11 @@ const rejectFriendRequest = (req, res, next) => {
     (err, game) => {
       if (!err && game) {
         res.send({
-          succes: true,
+          success: true,
           message: "Successfully rejected friend request",
         });
       } else {
-        res.send({ succes: false, message: "Unable to reject friend request" });
+        res.send({ success: false, message: "Unable to reject friend request" });
       }
     }
   );
@@ -181,11 +181,11 @@ const acceptFriendRequest = (req, res, next) => {
   ).exec(function (err, game) {
     if (!err && game) {
       res.send({
-        succes: true,
+        success: true,
         message: "Successfully accepted friend request",
       });
     } else {
-      res.send({ succes: false, message: "Unable to accepted friend request" });
+      res.send({ success: false, message: "Unable to accepted friend request" });
     }
   });
 };

@@ -83,9 +83,7 @@ class FriendRequestSent extends React.Component {
                   type="button"
                   value="Cancel"
                   onClick={(e) => {
-                    // e.preventDefault();
                     this.cancelRequest(data.receiver_id._id);
-                    // window.location.reload(false);
                   }}
                 />
               </div>

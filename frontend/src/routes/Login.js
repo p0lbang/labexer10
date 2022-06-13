@@ -130,7 +130,7 @@ class Login extends React.Component {
             required={true}
           />
           <br />
-          <input id="btnSignUp" type="submit" value="Sign Up" />
+          <input className="homepage-button" type="submit" value="Login" />
           <a className="login" href="/sign-up">Sign up now</a>
         </form>
       </div>
