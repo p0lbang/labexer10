@@ -8,7 +8,7 @@ import setUpRoutes from "./routes.js";
 // connect to Mongo DB
 mongoose.connect(
   "mongodb://localhost:27017/BOOKFACE",
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: true },
   (err) => {
     if (err) {
       console.log(err);
