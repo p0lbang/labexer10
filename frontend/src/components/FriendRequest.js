@@ -117,41 +117,6 @@ class FriendRequest extends React.Component {
                 />
               </div>
             </div>
-
-            // <div className="sidebar-item">
-            //   <div>
-            //     <span>
-            //       <img
-            //         className="sidebar-item-image"
-            //         src={this.parseImagefile(data.imageFilename)}
-            //         alt=""
-            //       />
-            //     </span>
-            //     <span>
-            //       {data.requester_id.firstname +
-            //         " " +
-            //         data.requester_id.lastname}
-            //     </span>
-            //   </div>
-            //   <div>
-            //     <input
-            //       type="button"
-            //       value="Accept"
-            //       onClick={() => {
-            //         this.acceptRequest(data.requester_id._id);
-            //         window.location.reload(false);
-            //       }}
-            //     />
-            //     <input
-            //       type="button"
-            //       value="Reject"
-            //       onClick={() => {
-            //         this.rejectRequest(data.requester_id._id);
-            //         window.location.reload(false);
-            //       }}
-            //     />
-            //   </div>
-            // </div>
           );
         })}
       </li>

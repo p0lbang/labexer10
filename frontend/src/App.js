@@ -9,15 +9,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
         <Route exact={true} path="/" element={<Home />} />
-
         <Route exact={true} path="/sign-up" element={<SignUp />} />
         <Route exact={true} path="/log-in" element={<Login />} />
         <Route exact={true} path="/feed" element={<Feed />} />
-        {/* not in final */}
-        <Route exact={true} path="/signup" element={<SignUp />} />
-        <Route exact={true} path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

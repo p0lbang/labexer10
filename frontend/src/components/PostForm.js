@@ -17,7 +17,6 @@ class PostForm extends React.Component {
     let txtarea = document.getElementById("postInput");
 
     if (txtarea.value === "") {
-      e.preventDefault();
       return;
     }
 
@@ -35,10 +34,9 @@ class PostForm extends React.Component {
       .then((body) => {
         if (!body.success) {
           console.log("Failed to publish post!");
+        }else{
+          window.location.reload(false);
         }
-        // console.log(body);
-        console.log("test")
-        window.location.reload(false);
       });
   }
 
