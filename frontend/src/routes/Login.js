@@ -131,7 +131,9 @@ class Login extends React.Component {
           />
           <br />
           <input className="homepage-button" type="submit" value="Login" />
-          <a className="login" href="/sign-up">Sign up now</a>
+          <a className="login" href="/sign-up">
+            Sign up now
+          </a>
         </form>
       </div>
     );

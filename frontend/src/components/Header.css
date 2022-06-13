@@ -20,7 +20,7 @@ ol#listofitem>li {
     border: 1px solid gray;
 }
 
-input.btnaddfriend{
+input.btnaddfriend {
     background-color: var(--icon-color);
     color: var(--separator-color);
     border: none;
@@ -28,4 +28,4 @@ input.btnaddfriend{
     margin-top: 5px;
     padding: 5px;
     border-radius: 5px;
-  }
+}

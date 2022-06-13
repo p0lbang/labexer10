@@ -73,7 +73,7 @@ input.login-input:disabled {
     background-color: gray;
 }
 
-a.login{
+a.login {
     display: block;
     margin-top: 5px;
     color: --var(--icon-selected-color);
@@ -81,7 +81,7 @@ a.login{
     font-family: inherit;
 }
 
-input[type=button]:hover, 
+input[type=button]:hover,
 input[type=submit]:hover {
     cursor: pointer;
 }

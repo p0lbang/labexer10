@@ -205,7 +205,7 @@ input#searchInput {
   padding-left: 16px;
 }
 
-.sidebar-item-group{
+.sidebar-item-group {
   border-radius: 5px;
 }
 
@@ -223,7 +223,7 @@ input#searchInput {
   padding-bottom: 5px;
 }
 
-.sidebar-item-group-buttons > input {
+.sidebar-item-group-buttons>input {
   background-color: var(--separator-color);
   color: var(--icon-color);
   border: none;
@@ -233,7 +233,7 @@ input#searchInput {
   margin-left: 5px;
 }
 
-.sidebar-item-group-buttons > input:hover{
+.sidebar-item-group-buttons>input:hover {
   cursor: pointer;
 }
 
@@ -255,7 +255,7 @@ input#searchInput {
   vertical-align: middle;
 }
 
-.sidebar-item-group >div >span:nth-child(2) {
+.sidebar-item-group>div>span:nth-child(2) {
   padding-left: 12px;
   font-size: 1rem;
   vertical-align: middle;
@@ -511,7 +511,7 @@ input#submitPost {
 
 /* POST FUNCTIONAL BUTTONS */
 
-input.btnfunctions{
+input.btnfunctions {
   background-color: var(--separator-color);
   color: var(--icon-color);
   border: none;
@@ -521,17 +521,16 @@ input.btnfunctions{
   margin-left: 5px;
 }
 
-input[type=button].btnfunctions:hover{
+input[type=button].btnfunctions:hover {
   cursor: pointer;
 }
 
-div#postSpacer{
+div#postSpacer {
   margin: auto;
   width: 100%;
 }
 
-div#postButtons{
+div#postButtons {
   width: 100%;
   text-align: right;
 }
-

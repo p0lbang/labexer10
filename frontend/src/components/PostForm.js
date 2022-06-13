@@ -34,7 +34,7 @@ class PostForm extends React.Component {
       .then((body) => {
         if (!body.success) {
           console.log("Failed to publish post!");
-        }else{
+        } else {
           window.location.reload(false);
         }
       });

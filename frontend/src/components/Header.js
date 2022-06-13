@@ -32,7 +32,7 @@ class Header extends React.Component {
         if (!body.success) {
           alert(body.message);
         } else {
-          alert(body.message)
+          alert(body.message);
         }
       });
   }

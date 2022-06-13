@@ -130,7 +130,7 @@ class SignUp extends React.Component {
     return (
       <div>
         <form id="login-from" action="" onSubmit={this.formSubmit}>
-        <h1>SIGN UP</h1>
+          <h1>SIGN UP</h1>
           <label className="label">Firstname:</label>
           <input
             type="text"
@@ -185,7 +185,9 @@ class SignUp extends React.Component {
           <span id="errorMSGrepeatpass" className="errorMessage"></span>
           <br />
           <input className="homepage-button" type="submit" value="Sign Up" />
-          <a className="login" href="/log-in">Log in now</a>
+          <a className="login" href="/log-in">
+            Log in now
+          </a>
         </form>
       </div>
     );
