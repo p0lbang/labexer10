@@ -5,25 +5,18 @@ const User = mongoose.model("user");
 
 const Post = mongoose.model("post", {
   poster_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
-  // poster_email: { type: String, required: true },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
 /*
-status: [Accepted, Pending] // if rejected of canceled request just delete the item
+status: [Accepted, Pending] // if rejected or canceled request just delete the item
 */
-
 const FriendSchema = new mongoose.Schema({
   requester_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   receiver_id: { type: mongoose.Types.ObjectId, ref: "user", required: true },
   status: { type: String, required: true },
 });
-// FriendSchema.index(
-//   { requester_id: 1, receiver_id: 1 },
-//   { unique: true}
-// );
-// FriendSchema.set("autoIndex", true);
 
 const Friend = mongoose.model("friend", FriendSchema);
 
@@ -91,7 +84,7 @@ const loginUser = (req, res, next) => {
 const findUserName = (req, res, next) => {
   // CONCAT firstname and last name then use like %etc%
   if (!req.body.name) {
-    return res.send("No id provided");
+    return res.send("No name provided");
   }
 
   User.find(
@@ -130,8 +123,6 @@ const getUserFriends = async (req, res, next) => {
             .exec(function (err2, out2) {
               if (!err2) {
                 allFriends = allFriends.concat(out1, out2);
-                // console.log("all of my friends");
-                // console.log(allFriends);
                 res.send(allFriends);
               }
             });
@@ -267,7 +258,7 @@ const createPost = (req, res, next) => {
     if (!err) {
       res.send({ success: true, message: "Succesfully published post" });
     } else {
-      res.send({ success: true, message: "Unable to publish post" });
+      res.send({ success: false, message: "Unable to publish post" });
     }
   });
 };
